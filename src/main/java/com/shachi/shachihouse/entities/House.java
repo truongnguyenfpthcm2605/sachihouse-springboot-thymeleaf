@@ -8,6 +8,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.springframework.data.web.JsonPath;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 @Data
@@ -16,7 +17,7 @@ import java.time.LocalDate;
 @Builder
 @Entity
 @Table(name = "house")
-public class House {
+public class House implements Serializable {
     @Id
     private String id;
     private String title;

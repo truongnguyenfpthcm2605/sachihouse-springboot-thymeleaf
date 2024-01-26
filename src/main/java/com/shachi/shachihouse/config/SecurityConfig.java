@@ -59,8 +59,10 @@ public class SecurityConfig {
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable).cors(cr -> cr.configurationSource(corsConfigurationSource()))
                 .authorizeHttpRequests(auth -> {
+                    auth.requestMatchers(HttpMethod.GET,"/health").permitAll();
+                    auth.requestMatchers(HttpMethod.GET,"/index").permitAll();
+                    auth.requestMatchers("/oauth2/authorization").permitAll();
                     auth.anyRequest().permitAll();
-                    auth.requestMatchers(HttpMethod.GET,"/index");
 
                 })
                 .formLogin(login -> login.loginPage("/auth/login/form")
@@ -86,6 +88,7 @@ public class SecurityConfig {
                                .userInfoEndpoint(userInfoEndpointConfig -> userInfoEndpointConfig.userService(oAuth2UserDetailService))
                                 .defaultSuccessUrl("/auth/oauth2")
                                 .failureUrl("/auth/oauth2/fail")
+
                 )
                 .exceptionHandling(ex -> ex.accessDeniedPage("/auth/denied"))
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
