@@ -13,6 +13,8 @@ public interface AccountService {
     Account update(Account account);
     Optional<Account> findById(Long id);
     Optional<Account> findByEmail(String email);
+
+    Optional<Account> findByUsername(String username);
     Optional<Account> findByUsernameAndProviderID(String username, String providerID);
     void deleteById(Long id);
     List<Account> findAll();

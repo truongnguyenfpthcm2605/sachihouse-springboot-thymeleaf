@@ -16,6 +16,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Base64;
 import java.util.List;
 
 @Service
@@ -23,11 +24,10 @@ import java.util.List;
 public class FileServiceImpl implements FileService {
 
     private final ServletContext app;
-    private final ResourceLoader resourceLoader;
 
     @Override
     public Path getPath(String folder, String filename) {
-        File dir = Paths.get(app.getRealPath("/files/"), folder).toFile();
+        File dir = Paths.get(app.getRealPath(folder)).toFile();
         try {
             if (!dir.exists()) {
                 dir.mkdirs();
@@ -39,12 +39,12 @@ public class FileServiceImpl implements FileService {
     }
 
     @Override
-    public byte[] read(String folder, String filename) throws FileException {
+    public String read(String folder, String filename)  {
         try {
             Path path = this.getPath(folder, filename);
-            return Files.readAllBytes(path);
-        } catch ( IOException e) {
-            throw new FileException(e.getMessage());
+            return path.toFile().getName();
+        } catch ( Exception e) {
+            throw new RuntimeException(e.getMessage());
         }
     }
 
@@ -61,7 +61,7 @@ public class FileServiceImpl implements FileService {
     @Override
     public List<String> list(String folder) {
         List<String> filenames = new ArrayList<>();
-        Path dir = Paths.get(app.getRealPath("/files/"), folder);
+        Path dir = Paths.get(app.getRealPath(folder));
         try (DirectoryStream<Path> stream = Files.newDirectoryStream(dir)) {
             for (Path file : stream) {
                 filenames.add(file.getFileName().toString());
@@ -92,7 +92,7 @@ public class FileServiceImpl implements FileService {
             String filename = Integer.toHexString(name.hashCode()) + name.substring(name.lastIndexOf("."));
             Path path = this.getPath(folderName, filename);
             file.transferTo(path);
-            return path.toString();
+            return filename;
         } catch (IOException e) {
             throw new RuntimeException("Failed to upload file", e);
         }
@@ -111,6 +111,21 @@ public class FileServiceImpl implements FileService {
             throw new RuntimeException("Failed to write file", e);
         }
     }
+    @Override
+    public String readAndEncodeImage(String folder, String filename) {
+        try {
+            Path path = this.getPath(folder, filename);
+            byte[] imageBytes = Files.readAllBytes(path);
+            return "data:image/jpeg;base64,"+encodeImage(imageBytes);
+        } catch (IOException e) {
+            throw new RuntimeException("Failed to read image: " + filename);
+        }
+    }
+
+    private String encodeImage(byte[] imageBytes) {
+        return Base64.getEncoder().encodeToString(imageBytes);
+    }
+
 
 
 }

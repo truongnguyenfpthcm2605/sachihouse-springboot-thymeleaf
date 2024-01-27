@@ -1,5 +1,6 @@
-package com.travelbee.app.config;
+package com.shachi.shachihouse.config;
 
+import lombok.extern.slf4j.Slf4j;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.slf4j.Logger;
@@ -12,26 +13,27 @@ import org.springframework.stereotype.Component;
 @Configuration
 @EnableAspectJAutoProxy
 @Component
+@Slf4j
 public class AspectConfig {
     private Logger logger = LoggerFactory.getLogger(AspectConfig.class);
 
-    @Before("execution(* com.travelbee.app.controller.*.*.*(..))")
-    public void before(JoinPoint joinPoint){
+    @Before("execution(* com.shachi.shachihouse.controller.*.*(..))")
+    public void before(JoinPoint joinPoint) {
         logger.info(" before called " + joinPoint.toString());
     }
 
-    @After("execution(* com.travelbee.app.controller.*.*.*(..))")
-    public void after(JoinPoint joinPoint){
+    @After("execution(* com.shachi.shachihouse.controller.*.*(..))")
+    public void after(JoinPoint joinPoint) {
         logger.info(" after called " + joinPoint.toString());
     }
 
-    @AfterReturning("execution(* com.travelbee.app.controller.*.*.*(..))")
-    public void AfterReturning(JoinPoint joinPoint){
+    @AfterReturning("execution(* com.shachi.shachihouse.controller.*.*(..))")
+    public void AfterReturning(JoinPoint joinPoint) {
         logger.info(" AfterReturning called " + joinPoint.toString());
     }
 
-    @AfterThrowing("execution(* com.travelbee.app.controller.*.*.*(..))")
-    public void AfterThrowing(JoinPoint joinPoint){
+    @AfterThrowing("execution(* com.shachi.shachihouse.controller.*.*(..))")
+    public void AfterThrowing(JoinPoint joinPoint) {
         logger.info(" AfterThrowing called " + joinPoint.toString());
     }
 }

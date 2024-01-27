@@ -9,8 +9,8 @@ import java.util.List;
 
 public interface FileService {
      Path getPath(String folder, String filename) ;
-    
-     byte[] read(String folder, String name) throws FileException;
+
+     String read(String folder, String name) throws FileException;
 
      void delete(String folder, String file) ;
     
@@ -20,6 +20,7 @@ public interface FileService {
 
      String uploadFileString(MultipartFile file, String folderName);
      File uploadFile(MultipartFile file, String folderName);
+     public String readAndEncodeImage(String folder, String filename);
            
 
     

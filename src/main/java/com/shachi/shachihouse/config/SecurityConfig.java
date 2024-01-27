@@ -18,6 +18,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
@@ -61,6 +62,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> {
                     auth.requestMatchers(HttpMethod.GET,"/health").permitAll();
                     auth.requestMatchers(HttpMethod.GET,"/index").permitAll();
+                    auth.requestMatchers("/auth/**").permitAll();
                     auth.requestMatchers("/oauth2/authorization").permitAll();
                     auth.anyRequest().permitAll();
 
@@ -81,6 +83,7 @@ public class SecurityConfig {
                                 .clearAuthentication(true)
                                 .logoutRequestMatcher(new AntPathRequestMatcher("/auth/logout"))
                                 .logoutSuccessUrl("/auth/logout/success")
+                                .addLogoutHandler(new SecurityContextLogoutHandler())
                 )
                 .oauth2Login(httpSecurityOAuth2LoginConfigurer ->
                         httpSecurityOAuth2LoginConfigurer

@@ -38,6 +38,11 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
+    public Optional<Account> findByUsername(String username) {
+        return accountRepository.findByUsername(username);
+    }
+
+    @Override
     public Optional<Account> findByUsernameAndProviderID(String username, String providerID) {
         return accountRepository.findByUsernameAndProviderID(username,providerID);
     }
