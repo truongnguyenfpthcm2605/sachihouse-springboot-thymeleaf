@@ -8,6 +8,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -19,11 +22,21 @@ public class HouseServiceImpl implements HouseService {
     private final HouseRepository houseRepository;
 
     @Override
+    @Transactional(
+            propagation = Propagation.REQUIRED
+            , isolation = Isolation.READ_COMMITTED,
+            rollbackFor = {Exception.class, Throwable.class}
+    )
     public House save(House house) {
         return houseRepository.save(house);
     }
 
     @Override
+    @Transactional(
+            propagation = Propagation.REQUIRED
+            , isolation = Isolation.READ_COMMITTED,
+            rollbackFor = {Exception.class, Throwable.class}
+    )
     public House update(House house) {
         return houseRepository.save(house);
     }
@@ -34,6 +47,11 @@ public class HouseServiceImpl implements HouseService {
     }
 
     @Override
+    @Transactional(
+            propagation = Propagation.REQUIRED
+            , isolation = Isolation.READ_COMMITTED,
+            rollbackFor = {Exception.class, Throwable.class}
+    )
     public void deleteById(String id) {
             houseRepository.deleteById(id);
     }

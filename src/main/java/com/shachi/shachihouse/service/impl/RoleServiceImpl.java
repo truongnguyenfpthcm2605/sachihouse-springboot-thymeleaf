@@ -9,6 +9,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -18,11 +21,21 @@ import java.util.Optional;
 public class RoleServiceImpl implements RoleService {
     private final RoleRepository repository;
     @Override
+    @Transactional(
+            propagation = Propagation.REQUIRED
+            , isolation = Isolation.READ_COMMITTED,
+            rollbackFor = {Exception.class, Throwable.class}
+    )
     public Role save(Role role) {
         return repository.save(role);
     }
 
     @Override
+    @Transactional(
+            propagation = Propagation.REQUIRED
+            , isolation = Isolation.READ_COMMITTED,
+            rollbackFor = {Exception.class, Throwable.class}
+    )
     public Role update(Role role) {
         return repository.save(role);
     }
@@ -38,6 +51,11 @@ public class RoleServiceImpl implements RoleService {
     }
 
     @Override
+    @Transactional(
+            propagation = Propagation.REQUIRED
+            , isolation = Isolation.READ_COMMITTED,
+            rollbackFor = {Exception.class, Throwable.class}
+    )
     public void deleteById(Long id) {
         repository.deleteById(id);
     }

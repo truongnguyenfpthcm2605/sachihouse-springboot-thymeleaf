@@ -8,6 +8,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -18,11 +21,21 @@ public class AccountServiceImpl implements AccountService {
     private final AccountRepository accountRepository;
 
     @Override
+    @Transactional(
+            propagation = Propagation.REQUIRED
+            , isolation = Isolation.READ_COMMITTED,
+            rollbackFor = {Exception.class, Throwable.class}
+    )
     public Account save(Account account) {
         return accountRepository.save(account);
     }
 
     @Override
+    @Transactional(
+            propagation = Propagation.REQUIRED
+            , isolation = Isolation.READ_COMMITTED,
+            rollbackFor = {Exception.class, Throwable.class}
+    )
     public Account update(Account account) {
         return accountRepository.save(account);
     }
@@ -48,6 +61,11 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
+    @Transactional(
+            propagation = Propagation.REQUIRED
+            , isolation = Isolation.READ_COMMITTED,
+            rollbackFor = {Exception.class, Throwable.class}
+    )
     public void deleteById(Long id) {
         accountRepository.deleteById(id);
     }

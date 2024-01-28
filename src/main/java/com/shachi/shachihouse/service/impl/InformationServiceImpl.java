@@ -8,6 +8,9 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Isolation;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -18,11 +21,21 @@ public class InformationServiceImpl implements InformationService {
     private final InformationRepository informationService;
 
     @Override
+    @Transactional(
+            propagation = Propagation.REQUIRED
+            , isolation = Isolation.READ_COMMITTED,
+            rollbackFor = {Exception.class, Throwable.class}
+    )
     public Information save(Information information) {
         return informationService.save(information);
     }
 
     @Override
+    @Transactional(
+            propagation = Propagation.REQUIRED
+            , isolation = Isolation.READ_COMMITTED,
+            rollbackFor = {Exception.class, Throwable.class}
+    )
     public Information update(Information information) {
         return informationService.save(information);
     }
@@ -33,6 +46,11 @@ public class InformationServiceImpl implements InformationService {
     }
 
     @Override
+    @Transactional(
+            propagation = Propagation.REQUIRED
+            , isolation = Isolation.READ_COMMITTED,
+            rollbackFor = {Exception.class, Throwable.class}
+    )
     public void deleteById(Long id) {
         informationService.deleteById(id);
     }
