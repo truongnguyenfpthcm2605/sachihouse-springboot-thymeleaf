@@ -1,6 +1,7 @@
 package com.shachi.shachihouse.dtos.request;
 
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -24,7 +25,7 @@ public class HouseDTO {
     private String address;
     @NotBlank(message = "images is required")
     private String images;
-    @NotBlank(message = "price is required")
+    @NotNull(message = "Price is required")
     private Double price;
     @NotBlank(message = "description is required")
     private String description;
