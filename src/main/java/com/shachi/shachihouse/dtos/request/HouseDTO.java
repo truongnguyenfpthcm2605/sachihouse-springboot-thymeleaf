@@ -23,11 +23,10 @@ public class HouseDTO {
     private String toilet;
     @NotBlank(message = "address is required")
     private String address;
-    @NotBlank(message = "images is required")
-    private String images;
     @NotNull(message = "Price is required")
     private Double price;
-    @NotBlank(message = "description is required")
+    @NotBlank(message = "address is description")
     private String description;
+
 
 }

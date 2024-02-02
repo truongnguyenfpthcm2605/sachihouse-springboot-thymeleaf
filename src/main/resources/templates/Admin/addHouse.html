@@ -32,6 +32,11 @@
         transition: all linear 0.3s;
         transform: scale(1.03);
     }
+    .error {
+        font-weight: bold;
+        font-size: 10px;
+        color: red;
+    }
 </style>
 
 <body>
@@ -46,46 +51,64 @@
             ĐÀ LẠT
         </h1>
         <div style="width: 80%; margin:  0 auto;">
-            <form>
+            <form th:action="@{/save/house}" th:object="${house}" method="post" enctype="multipart/form-data">
                 <div class="form-group">
                     <label for="exampleInputEmail1">Mã Nhà</label>
-                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
+                    <input th:field="*{id}" type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp"
                         placeholder="nhập ID nhà">
+                    <span class="error"  th:errors="*{id}"> Không bỏ trống Id</span>
                 </div>
                 <div class="form-group">
-                    <label for="exampleInputPassword1">Tên Nhà</label>
-                    <input type="text" class="form-control" id="exampleInputPassword1" placeholder="tên nhà">
+                    <label>Tên Nhà</label>
+                    <input th:field="*{title}" type="text" class="form-control"  placeholder="tên nhà">
+                    <span class="error"  th:errors="*{title}"> Không bỏ trống tên nhà</span>
                 </div>
                 <div class="form-group">
-                    <label for="exampleInputPassword1">Phòng Ngủ ( Số Phòng )</label>
-                    <input type="text" class="form-control" id="exampleInputPassword1"
+                    <label>Phòng Ngủ ( Số Phòng )</label>
+                    <input th:field="*{bedroom}" type="text" class="form-control" 
                         placeholder="nhập số lượng phòng">
+                    <span class="error"  th:errors="*{bedroom}"> Không bỏ trống số lượng phòng ngủ</span>
                 </div>
                 <div class="form-group">
-                    <label for="exampleInputPassword1">Toilet ( Số Toilet )</label>
-                    <input type="text" class="form-control" id="exampleInputPassword1"
+                    <label>Toilet ( Số Toilet )</label>
+                    <input th:field="*{toilet}" type="text" class="form-control" 
                         placeholder="nhập số lượng toilet">
+                    <span class="error"  th:errors="*{toilet}"> Không bỏ trống số lượng toilet</span>
                 </div>
                 <div class="form-group">
-                    <label for="exampleInputPassword1">Giá Nhà</label>
-                    <input type="text" class="form-control" id="exampleInputPassword1" placeholder="nhập giá">
+                    <label th:field="*{price}">Giá Nhà</label>
+                    <input type="text" class="form-control"  placeholder="nhập giá">
+                    <span class="error"  th:errors="*{price}"> Không bỏ trống số lượng toilet</span>
                 </div>
                 <div class="form-group">
-                    <label for="exampleInputPassword1">Địa Chỉ</label>
-                    <textarea class="form-control" cols="10" rows="8" id="exampleInputPassword1"
+                    <label>Địa Chỉ</label>
+                    <textarea th:field="*{address}" class="form-control" cols="10" rows="8" 
                         placeholder="nhập địa chỉ"></textarea>
+                    <span class="error"  th:errors="*{address}"> Không bỏ trống địa chỉ</span>
                 </div>
                 <div class="form-group">
-                    <label for="exampleInputPassword1">Hình ảnh mô tả</label>
-                    <input type="file" class="form-control" id="exampleInputPassword1" multiple>
+                    <label for="exampleFormControlSelect1">Loại Nhà</label>
+                    <select class="form-control" id="exampleFormControlSelect1" name="category">
+                        <option th:each="item : ${categories}" th:value="${item.id}" th:text="${item.title}"></option>
+                    </select>
                 </div>
+                <div class="form-group">
+                    <label>Hình ảnh mô tả</label>
+                    <input name="images" type="file" class="form-control"  multiple>
+                    <span class="error" th:text="${messageImg}"></span>
+                </div>
+
                 <div id="editor">
                 </div>
 
+                <input type="hidden" id="output" th:field="*{description}">
+                <span class="error"  th:errors="*{description}"> Không bỏ trống số mô tả</span>
+
                 <div style="text-align: center; margin: 10px;">
-                    <button type="button" id="saveButton" class="btn " style="width:200px;">Thêm Mới <i
+                    <button type="submit" id="saveButton" class="btn " style="width:200px;">Thêm Mới <i
                             class="fa-solid fa-file-import"></i></button>
                 </div>
+                <span class="error" th:text="${messageAll}"></span>
             </form>
         </div>
     </div>
@@ -248,11 +271,11 @@
                 // Store the CKEditor instance in the global variable
                 editor = instance;
                 // Add blur event listener to CKEditor instance
-                // editor.editing.view.document.on('blur', (eventInfo, data) => {
-                //     // Get the content from the CKEditor instance
-                //     var editorData = editor.getData();
-                //     document.getElementById('output').innerHTML = editorData;
-                // });
+                editor.editing.view.document.on('blur', (eventInfo, data) => {
+                    // Get the content from the CKEditor instance
+                    var editorData = editor.getData();
+                    document.getElementById('output').innerHTML = editorData;
+                });
 
                 // Event listener for the "Save" button
                 document.getElementById('saveButton').addEventListener('click', function () {
