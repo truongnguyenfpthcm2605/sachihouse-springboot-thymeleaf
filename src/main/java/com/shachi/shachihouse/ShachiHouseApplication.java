@@ -7,7 +7,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 @SpringBootApplication(scanBasePackages = "com.shachi.shachihouse")
 @EnableTransactionManagement
 public class ShachiHouseApplication {
-
     public static void main(String[] args) {
         SpringApplication.run(ShachiHouseApplication.class, args);
     }

@@ -24,10 +24,8 @@ public class House implements Serializable {
     private String bedroom;
     private String toilet;
     private String address;
-    @Lob
     private String images;
     private Double price;
-    @Lob
     private String description;
     @Temporal(TemporalType.DATE)
     private LocalDate createdate;

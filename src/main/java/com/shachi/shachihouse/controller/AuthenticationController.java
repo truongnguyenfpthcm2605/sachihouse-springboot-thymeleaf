@@ -13,6 +13,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;
@@ -21,7 +22,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashSet;
 import java.util.Set;
 
-@RestController
+@Controller
 @RequiredArgsConstructor
 public class AuthenticationController {
 
@@ -39,12 +40,12 @@ public class AuthenticationController {
     @GetMapping("/auth/oauth2/fail")
     public String loginFailOAuth2(Model model) {
         model.addAttribute("message", "Đăng nhập thất bại!");
-        return "/auth/login";
+        return "/home/login";
     }
 
     @GetMapping("/auth/login/form")
     public String loginForm() {
-        return "/auth/login";
+        return "/home/login";
     }
 
     @GetMapping("/auth/login/success")
@@ -60,13 +61,13 @@ public class AuthenticationController {
     @GetMapping("/auth/login/error")
     public String loginFail(Model model) {
         model.addAttribute("message", "Đăng nhập thất bại!");
-        return "/auth/login";
+        return "/home/login";
     }
 
     @GetMapping("/auth/denied")
     public String loginDenied(Model model) {
         model.addAttribute("message", "Không có quyền truy cập!");
-        return "/auth/login";
+        return "/home/login";
     }
 
     @PostMapping("/auth/register")

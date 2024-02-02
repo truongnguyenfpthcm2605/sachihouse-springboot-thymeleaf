@@ -73,6 +73,7 @@ public class SecurityConfig {
                         .failureUrl("/auth/login/error")
                         .usernameParameter("username")
                         .passwordParameter("password")
+
                 )
                 .rememberMe(remember -> remember.rememberMeParameter("remember")
                         .tokenValiditySeconds(86400)
