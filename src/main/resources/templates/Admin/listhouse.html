@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Title</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+          integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        .card {
+            border-radius: 15px;
+            box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+            margin-top: 10px;
+            margin-left: 15px;
+        }
+        .card:hover{
+            transform: scale(1.02);
+            transition: all linear 0.3s;
+
+        }
+        .card img{
+            border-radius: 15px;
+        }
+    </style>
+</head>
+
+<body>
+<div class="container">
+    <nav class="navbar navbar-light bg-light justify-content-between">
+        <a class="navbar-brand">Danh Sách House</a>
+        <div class="form-inline">
+            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Tìm <i class="fa-solid fa-magnifying-glass"></i></button>
+            <button style="margin-left: 5px;" class="btn btn-primary my-2 my-sm-0" type="submit">Thêm <i class="fa-solid fa-plus"></i></button>
+            <button style="margin-left: 5px;" class="btn btn-success my-2 my-sm-0" type="submit">Export <i class="fa-solid fa-file-excel"></i></button>
+            <select class="btn btn-light" style="margin-left: 5px" id="exampleFormControlSelect1" name="category">
+                <option th:each="item : ${categories}" th:value="${item.id}" th:text="${item.title}"></option>
+            </select>
+        </div>
+    </nav>
+    <div class="row">
+        <div class="col-md-4" th:each="house : ${list}">
+            <div class="card" style="width: 20rem;">
+                <img class="card-img-top" th:src="@{/assets/houseimg/__${house.images.split(',')[0]}__}" style="width: 100%;" alt="Card image cap">
+                <div class="card-body">
+                    <h5 class="card-title" th:text="${house.title}"></h5>
+
+                    <p class="card-text" style="font-weight: bold; color: red" >[[${#numbers.formatDecimal(house.price, 0, 'COMMA', 0, 'POINT')}]] VND</p>
+                    <p> <i class="fa-solid fa-bed"></i>  [[${house.bedroom}]] Phòng ngủ</p>
+                    <p> <i class="fa-solid fa-toilet"></i> [[${house.toilet}]] Toilet</p>
+                    <div style="display: flex;justify-content: space-evenly;">
+                        <a href="#" style="color:#294B29 ;"><i class="fa-solid fa-eye" ></i> Xem </a>
+                        <a href="#" style="color: #FE7A36;"><i class="fa-solid fa-pen-to-square"></i> Sửa </a>
+                        <a href="#" style="color: #A94438;"><i class="fa-solid fa-trash"></i>Xóa </a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

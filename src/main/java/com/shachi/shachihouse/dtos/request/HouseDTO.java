@@ -13,19 +13,19 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class HouseDTO {
 
-    @NotBlank(message = "id is required")
+    @NotBlank(message = "Vui lòng nhập mã nhà")
     private String id;
-    @NotBlank(message = "title is required")
+    @NotBlank(message = "Vui lòng nhập tên nhà")
     private String title;
-    @NotBlank(message = "bedroom is required")
+    @NotBlank(message = "Vui lòng nhập số lượng phòng ngủ")
     private String bedroom;
-    @NotBlank(message = "toilet is required")
+    @NotBlank(message = "Vui lòng nhập số lượng toilet")
     private String toilet;
-    @NotBlank(message = "address is required")
+    @NotBlank(message = "Vui lòng nhập địa chỉ")
     private String address;
-    @NotNull(message = "Price is required")
+    @NotNull(message = "Vui lòng nhập giá")
     private Double price;
-    @NotBlank(message = "address is description")
+    @NotBlank(message = "Vui lòng nhập mô tả")
     private String description;
 
 
