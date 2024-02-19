@@ -2,8 +2,10 @@ package com.shachi.shachihouse.utils;
 
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
+@Service
 public class Session {
     private final HttpSession session;
     public void setAttribute(String name,Object value) {

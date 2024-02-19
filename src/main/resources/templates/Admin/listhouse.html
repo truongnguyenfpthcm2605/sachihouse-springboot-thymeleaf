@@ -28,6 +28,9 @@
         .card img{
             border-radius: 15px;
         }
+        .blue {
+            color: blue;
+        }
     </style>
 </head>
 
@@ -35,36 +38,56 @@
 <div class="container">
     <nav class="navbar navbar-light bg-light justify-content-between">
         <a class="navbar-brand">Danh Sách House</a>
-        <div class="form-inline">
-            <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+        <form class="form-inline" th:action="@{/admin/list}">
+            <input class="form-control mr-sm-2" th:value="${keyW}" name="keyword" type="search" placeholder="Search" aria-label="Search" onchange="this.form.submit()"/>
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Tìm <i class="fa-solid fa-magnifying-glass"></i></button>
-            <button style="margin-left: 5px;" class="btn btn-primary my-2 my-sm-0" type="submit">Thêm <i class="fa-solid fa-plus"></i></button>
-            <button style="margin-left: 5px;" class="btn btn-success my-2 my-sm-0" type="submit">Export <i class="fa-solid fa-file-excel"></i></button>
-            <select class="btn btn-light" style="margin-left: 5px" id="exampleFormControlSelect1" name="category">
-                <option th:each="item : ${categories}" th:value="${item.id}" th:text="${item.title}"></option>
+
+            <a style="margin:0 5px;" class="btn btn-primary my-2 my-sm-0" th:href="@{/admin/addhouse}">Thêm <i class="fa-solid fa-plus"></i></a>
+
+            <a th:href="@{/document/houses.xlsx}" download="houses.xlsx"  class="btn btn-success my-2 my-sm-0" >Export <i class="fa-solid fa-file-excel"></i></a>
+
+            <select class="btn btn-light" style="margin-left: 5px" id="exampleFormControlSelect1" name="categoryTitle" onchange="this.form.submit()">
+                <option th:each="item : ${categories}" th:selected="${cTitle == item.title}"  th:value="${item.title}" th:text="${item.title}"></option>
             </select>
-        </div>
+        </form>
     </nav>
-    <div class="row">
-        <div class="col-md-4" th:each="house : ${list}">
-            <div class="card" style="width: 20rem;">
-                <img class="card-img-top" th:src="@{/assets/houseimg/__${house.images.split(',')[0]}__}" style="width: 100%;" alt="Card image cap">
-                <div class="card-body">
-                    <h5 class="card-title" th:text="${house.title}"></h5>
+    <div th:if="${not #lists.isEmpty(list.content)}">
+        <div class="row">
+            <div class="col-md-4" th:each="house : ${list.content}">
+                <div class="card" style="width: 20rem;">
+                    <img class="card-img-top" th:src="@{/images/__${house.images.split(',')[0]}__}" style="width: 100%; height: 250px" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title" th:text="${house.title}"></h5>
 
-                    <p class="card-text" style="font-weight: bold; color: red" >[[${#numbers.formatDecimal(house.price, 0, 'COMMA', 0, 'POINT')}]] VND</p>
-                    <p> <i class="fa-solid fa-bed"></i>  [[${house.bedroom}]] Phòng ngủ</p>
-                    <p> <i class="fa-solid fa-toilet"></i> [[${house.toilet}]] Toilet</p>
-                    <div style="display: flex;justify-content: space-evenly;">
-                        <a href="#" style="color:#294B29 ;"><i class="fa-solid fa-eye" ></i> Xem </a>
-                        <a href="#" style="color: #FE7A36;"><i class="fa-solid fa-pen-to-square"></i> Sửa </a>
-                        <a href="#" style="color: #A94438;"><i class="fa-solid fa-trash"></i>Xóa </a>
+                        <p class="card-text" style="font-weight: bold; color: red" >[[${#numbers.formatDecimal(house.price, 0, 'COMMA', 0, 'POINT')}]] VND</p>
+                        <p> <i class="fa-solid fa-bed"></i>  [[${house.bedroom}]] Phòng ngủ</p>
+                        <p> <i class="fa-solid fa-toilet"></i> [[${house.toilet}]] Toilet</p>
+                        <div style="display: flex;justify-content: space-evenly;">
+                            <a href="#" style="color:#294B29 ;"><i class="fa-solid fa-eye" ></i> Xem </a>
+                            <a th:href="@{/admin/editor/__${house.id}__}" style="color: #FE7A36;"><i class="fa-solid fa-pen-to-square"></i> Sửa </a>
+                            <a th:href="@{/admin/delete/__${house.id}__}" style="color: #A94438;"><i class="fa-solid fa-trash"></i>Xóa </a>
+                        </div>
+
                     </div>
-
                 </div>
             </div>
         </div>
+        <div class="container" style="text-align: center; margin-top: 20px">
+
+            <a class="btn btn-light" th:href="@{|/admin/list?page=${page - 1}&title=${cTitle}&keyword=${keyW}|}"
+               th:if="${page > 1}"><i class="fa-solid fa-backward"></i></a>
+            <a class="btn btn-light"
+               th:each="i : ${#numbers.sequence(1,list.totalPages)}"
+               th:href="@{|/admin/list?page=${i}&title=${cTitle}&keyword=${keyW}|}"
+               th:class="${page == i} ? 'btn btn-primary' : 'btn btn-light'">[[${i}]]</a>
+            <a class="btn btn-light" th:href="@{|/admin/list?page=${page + 1}&title=${cTitle}&keyword=${keyW}|}"
+               th:if="${page < list.totalPages}"> <i class="fa-solid fa-forward"></i></a>
+        </div>
     </div>
+    <div th:if="${#lists.isEmpty(list.getContent())}" style="text-align: center ;margin-top: 20px; color: red; font-weight: bold">
+            <p>Không có dữ liệu <i class="fa-solid fa-face-sad-tear"></i> </p>
+    </div>
+
 </div>
 
 <!-- Optional JavaScript -->

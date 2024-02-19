@@ -70,4 +70,11 @@ public class HouseServiceImpl implements HouseService {
     public Page<House> findAll(Pageable pageable) {
         return houseRepository.findAll(pageable);
     }
+
+    @Override
+    public Page<House> findByKeyword(String keyword,String title, Pageable pageable) {
+        return houseRepository.findByKeyword("%"+keyword+"%","%"+title+"%",pageable);
+    }
+
+
 }

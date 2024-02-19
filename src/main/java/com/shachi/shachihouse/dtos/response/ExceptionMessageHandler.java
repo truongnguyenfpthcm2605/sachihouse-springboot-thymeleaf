@@ -12,8 +12,8 @@ import lombok.NoArgsConstructor;
 @Builder
 public class ExceptionMessageHandler {
 
-    @JsonProperty
+    @JsonProperty("message")
     private String message;
-    @JsonProperty
+    @JsonProperty("errorCode")
     private String errorCode;
 }
