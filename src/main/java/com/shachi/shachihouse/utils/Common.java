@@ -10,4 +10,18 @@ public class Common {
     public static final String urlFileException = "/Error/FileException";
     public static final String urlRuntimeExceptionCustom = "/Error/RuntimeExceptionCustom";
 
+    public static Integer handlePage(String pageParam){
+        int page = 0;
+        if (pageParam != null && !pageParam.isEmpty()) {
+            try {
+                page = Integer.parseInt(pageParam);
+                page = page-1;
+            } catch (NumberFormatException e) {
+                page = 0;
+                return page;
+            }
+        }
+        return page;
+    }
+
 }

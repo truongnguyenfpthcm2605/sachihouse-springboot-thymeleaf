@@ -21,4 +21,7 @@ public class SortAndPage {
     public static Pageable getPage(Integer number,Integer pageSize,Sort sort){
         return PageRequest.of(number, pageSize,sort);
     }
+
+
+
 }

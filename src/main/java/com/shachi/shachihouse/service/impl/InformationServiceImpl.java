@@ -66,7 +66,9 @@ public class InformationServiceImpl implements InformationService {
     }
 
     @Override
-    public Page<Information> findAll(Pageable pageable) {
-        return informationService.findAll(pageable);
+    public Page<Information> findAll(String title, Pageable pageable) {
+        return informationService.findAll(title,pageable);
     }
+
+
 }

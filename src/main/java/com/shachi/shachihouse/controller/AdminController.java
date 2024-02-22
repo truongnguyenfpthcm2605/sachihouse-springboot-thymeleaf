@@ -44,7 +44,7 @@ public class AdminController {
                        @RequestParam(value = "categoryTitle", defaultValue = "") String title,
                        @RequestParam(value= "keyword", defaultValue = "") String keyword){
         excel.Export(houseService.findAll());
-        int page = handlePage(pageParam);
+        int page = Common.handlePage(pageParam);
         Page<House> list =  houseService.findByKeyword(keyword, title,SortAndPage.getPage(page, pageSize, SortAndPage.getSortDown("title")));
         model.addAttribute("list", list);
         model.addAttribute("page", page+1);
@@ -114,19 +114,7 @@ public class AdminController {
         return "redirect:/admin/list";
     }
 
-    private Integer handlePage(String pageParam){
-        int page = 0;
-        if (pageParam != null && !pageParam.isEmpty()) {
-            try {
-                page = Integer.parseInt(pageParam);
-                page = page-1;
-            } catch (NumberFormatException e) {
-                page = 0;
-                return page;
-            }
-        }
-        return page;
-    }
+
 
 
 

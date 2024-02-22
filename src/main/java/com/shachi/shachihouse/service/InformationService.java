@@ -16,5 +16,5 @@ public interface InformationService {
     void deleteById(Long id);
     List<Information> findAll();
     List<Information> findAll(Sort sort);
-    Page<Information> findAll(Pageable pageable);
+    Page<Information> findAll(String title ,Pageable pageable);
 }

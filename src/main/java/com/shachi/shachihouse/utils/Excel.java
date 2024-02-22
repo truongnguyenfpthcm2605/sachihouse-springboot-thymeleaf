@@ -1,6 +1,7 @@
 package com.shachi.shachihouse.utils;
 
 import com.shachi.shachihouse.entities.House;
+import com.shachi.shachihouse.entities.Information;
 import jakarta.servlet.ServletContext;
 import lombok.RequiredArgsConstructor;
 import org.apache.poi.ss.usermodel.*;
@@ -19,7 +20,7 @@ public class Excel {
 
         try {
             XSSFWorkbook workbook = new XSSFWorkbook();
-            XSSFSheet sheet = workbook.createSheet("Danh Sách Tài Nhà");
+            XSSFSheet sheet = workbook.createSheet("Danh Sách  Nhà");
             String[] header = {"STT","ID","Title","Bedroom","Toilet","Address","Price","Ngày Tạo","Ngày cập nhật","View","Loại","Mô tả"};
 
             Row headerRow = sheet.createRow(0);
@@ -52,6 +53,45 @@ public class Excel {
                 sheet.autoSizeColumn(i);
             }
             String filePath = app.getRealPath("/document/houses.xlsx");
+            FileOutputStream outputStream = new FileOutputStream(filePath);
+            workbook.write(outputStream);
+            workbook.close();
+            outputStream.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void ExportInformation( List<Information> information)  {
+
+        try {
+            XSSFWorkbook workbook = new XSSFWorkbook();
+            XSSFSheet sheet = workbook.createSheet("Danh Sách Thôn Tin");
+            String[] header = {"STT","ID","FullName","Phone","Email"};
+
+            Row headerRow = sheet.createRow(0);
+            CellStyle headerStyle = workbook.createCellStyle();
+            headerStyle.setFillForegroundColor(IndexedColors.GREY_25_PERCENT.getIndex());
+            headerStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND);
+            for(int i =0;i<header.length;i++) {
+                Cell cell = headerRow.createCell(i);
+                cell.setCellValue(header[i]);
+                cell.setCellStyle(headerStyle);
+            }
+            int rowNum = 1;
+            for (Information information1 : information) {
+                Row row =sheet.createRow(rowNum++);
+                row.createCell(0).setCellValue(rowNum);
+                row.createCell(1).setCellValue(information1.getId());
+                row.createCell(2).setCellValue(information1.getFullname());
+                row.createCell(3).setCellValue(information1.getPhone());
+                row.createCell(4).setCellValue(information1.getEmail());
+
+            }
+            for (int i = 0; i < 4; i++) {
+                sheet.autoSizeColumn(i);
+            }
+            String filePath = app.getRealPath("/document/information.xlsx");
             FileOutputStream outputStream = new FileOutputStream(filePath);
             workbook.write(outputStream);
             workbook.close();

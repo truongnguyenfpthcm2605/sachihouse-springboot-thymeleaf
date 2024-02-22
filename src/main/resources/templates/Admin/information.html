@@ -1,0 +1,185 @@
+<!doctype html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Title</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+          integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        .table {
+            background-color: white;
+        }
+
+        .action a {
+            margin-left: 5px;
+            text-decoration: none;
+        }
+
+        .action a:hover {
+            transition: all linear 0.3s;
+            font-size: 18px;
+        }
+        .action button:hover {
+            transition: all linear 0.3s;
+            font-size: 18px;
+        }
+    </style>
+</head>
+
+<body>
+<div>
+    <nav class="navbar navbar-light bg-light justify-content-between" style="width: 80%; margin: 0 auto;">
+        <a class="navbar-brand">Danh Sách Thông Tin</a>
+        <form th:action="@{/admin/information}" class="form-inline">
+            <input class="form-control mr-sm-2" type="search" th:value="${title}" name="title" placeholder="Search" aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Tìm <i
+                    class="fa-solid fa-magnifying-glass"></i></button>
+            <button style="margin-left: 5px;" class="btn btn-primary my-2 my-sm-0" type="button" data-toggle="modal" data-target="#exampleModal2">Thêm <i
+                    class="fa-solid fa-plus"></i></button>
+            <a th:href="@{/document/information.xlsx}" download="information.xlsx" style="margin-left: 5px;" class="btn btn-success my-2 my-sm-0" type="button">Export <i
+                    class="fa-solid fa-file-excel"></i></a>
+        </form>
+        <div class="container navbar navbar-light bg-light justify-content-between">
+            <div class="table-responsive" th:if="${not #lists.isEmpty(list.content)}">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">STT</th>
+                        <th scope="col">ID</th>
+                        <th scope="col">fullName</th>
+                        <th scope="col">Phone</th>
+                        <th scope="col">Email</th>
+                        <th scope="col">Action</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="item : ${list.content}">
+                        <th scope="row" th:text="${index}"></th>
+                        <td th:text="${item.id}"></td>
+                        <td th:text="${item.fullname}"></td>
+                        <td th:text="${item.phone}"></td>
+                        <td th:text="${item.email}"></td>
+                        <td class="action">
+
+                            <a th:href="@{/admin/information/delete/__${item.id}__}" style="color: #D04848;"><i class="fa-solid fa-trash"></i>Xóa </a>
+                            <button data-toggle="modal" th:data-target="'#exampleModal'+${item.id}"
+                                    style="color: #9BCF53; outline: none;border: none; background-color: white; "><i
+                                    class="fa-solid fa-eye"></i>view </button>
+                        </td>
+                        <div class="modal fade" th:id="'exampleModal'+${item.id}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                             aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title" id="exampleModalLabel">Thông tin khách hàng</h5>
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <form>
+                                            <div class="form-group">
+                                                <label >Họ và Tên</label>
+                                                <input type="text" th:value="${item.fullname}" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Số điện thoại</label>
+                                                <input type="text" th:value="${item.phone}" class="form-control" >
+                                            </div>
+                                            <div class="form-group">
+                                                <label >Email</label>
+                                                <input type="email" th:value="${item.email}" class="form-control" >
+                                            </div>
+
+                                        </form>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </tr>
+
+                    </tbody>
+                </table>
+                <div class="container" style="text-align: center; margin-top: 20px">
+
+                    <a class="btn btn-light" th:href="@{|/admin/information?page=${page - 1}&title=${title}|}"
+                       th:if="${page > 1}"><i class="fa-solid fa-backward"></i></a>
+                    <a class="btn btn-light"
+                       th:each="i : ${#numbers.sequence(1,list.totalPages)}"
+                       th:href="@{|/admin/information?page=${i}&title=${title}|}"
+                       th:class="${page == i} ? 'btn btn-primary' : 'btn btn-light'">[[${i}]]</a>
+                    <a class="btn btn-light" th:href="@{|/admin/information?page=${page + 1}&title=${title}|}"
+                       th:if="${page < list.totalPages}"> <i class="fa-solid fa-forward"></i></a>
+                </div>
+            </div>
+            <div th:if="${#lists.isEmpty(list.getContent())}" style="text-align: center ;margin-top: 20px; color: red; font-weight: bold">
+                <p style="text-align: center">Không có dữ liệu <i class="fa-solid fa-face-sad-tear"></i> </p>
+            </div>
+        </div>
+    </nav>
+
+</div>
+
+
+<!-- Modal -->
+
+
+<div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Thêm thông tin</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form th:action="@{/admin/information/save}" method="post" th:object="${information}">
+                    <div class="form-group">
+                        <label >Họ và Tên</label>
+                        <input type="text" th:field="*{fullname}" class="form-control"  aria-describedby="emailHelp">
+                    </div>
+                    <div class="form-group">
+                        <label >Số điện thoại</label>
+                        <input type="text" th:field="*{phone}" class="form-control"  >
+                    </div>
+                    <div class="form-group">
+                        <label >Email</label>
+                        <input type="email" class="form-control" th:field="*{email}" >
+                    </div>
+
+                    <button class="btn btn-success">Thêm</button>
+
+
+
+                </form>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>
