@@ -40,34 +40,34 @@ public class AuthenticationController {
     @GetMapping("/auth/oauth2/fail")
     public String loginFailOAuth2(Model model) {
         model.addAttribute("message", "Đăng nhập thất bại!");
-        return "/home/login";
+        return "home/login";
     }
 
     @GetMapping("/auth/login/form")
     public String loginForm() {
-        return "/home/login";
+        return "home/login";
     }
 
     @GetMapping("/auth/login/success")
     public String loginSuccess() {
-        return "/home/index";
+        return "home/index";
     }
 
     @GetMapping("/auth/logout/success")
     public String logoutSuccess() {
-        return "/home/index";
+        return "home/index";
     }
 
     @GetMapping("/auth/login/error")
     public String loginFail(Model model) {
         model.addAttribute("message", "Đăng nhập thất bại!");
-        return "/home/login";
+        return "home/login";
     }
 
     @GetMapping("/auth/denied")
     public String loginDenied(Model model) {
         model.addAttribute("message", "Không có quyền truy cập!");
-        return "/home/login";
+        return "home/login";
     }
 
     @PostMapping("/auth/register")

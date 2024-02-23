@@ -27,7 +27,7 @@ public class HomeController {
     public String index(){
         List<House> houses = houseService.findAll();
         List<Category> categories = categoryService.findAll();
-        return "/home/index";
+        return "home/index";
     }
 
     @PostMapping ("/uploadFile")

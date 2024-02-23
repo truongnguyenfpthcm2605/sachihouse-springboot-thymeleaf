@@ -51,7 +51,7 @@ public class AdminController {
         model.addAttribute("keyW", keyword);
         model.addAttribute("cTitle", title);
         model.addAttribute("all","");
-        return "/Admin/listhouse";
+        return "Admin/listhouse";
     }
 
 
@@ -59,7 +59,7 @@ public class AdminController {
     @GetMapping("/addhouse")
     public String addHouse(Model model){
         model.addAttribute("house", new HouseDTO());
-        return "/Admin/addHouse";
+        return "Admin/addHouse";
     }
 
     @GetMapping("/editor/{id}")
@@ -76,7 +76,7 @@ public class AdminController {
                 .description(house.getDescription()).build();
         model.addAttribute("images", house.getImages().split(","));
         model.addAttribute("house",houseDTO);
-        return "/Admin/addHouse";
+        return "Admin/addHouse";
 
     }
 
