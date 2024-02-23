@@ -50,6 +50,7 @@ public class AdminController {
         model.addAttribute("page", page+1);
         model.addAttribute("keyW", keyword);
         model.addAttribute("cTitle", title);
+        model.addAttribute("all","");
         return "/Admin/listhouse";
     }
 
@@ -71,6 +72,7 @@ public class AdminController {
                 .toilet(house.getToilet())
                 .address(house.getAddress())
                 .price(house.getPrice())
+                .customer(house.getCustomer())
                 .description(house.getDescription()).build();
         model.addAttribute("images", house.getImages().split(","));
         model.addAttribute("house",houseDTO);
@@ -96,6 +98,7 @@ public class AdminController {
                     .toilet(houseDTO.getToilet())
                     .address(houseDTO.getAddress())
                     .description(houseDTO.getDescription())
+                    .customer(houseDTO.getCustomer())
                     .price(houseDTO.getPrice())
                     .images(String.join(",",fileService.uploadFiles(multipartFiles,"images")))
                     .isactive(true)

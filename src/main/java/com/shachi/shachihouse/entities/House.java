@@ -22,6 +22,7 @@ public class House implements Serializable {
     private String toilet;
     private String address;
     private String images;
+    private String customer;
     private Double price;
     private String description;
     @Temporal(TemporalType.DATE)

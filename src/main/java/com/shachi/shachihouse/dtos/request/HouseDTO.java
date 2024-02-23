@@ -23,6 +23,8 @@ public class HouseDTO {
     private String toilet;
     @NotBlank(message = "Vui lòng nhập địa chỉ")
     private String address;
+    @NotBlank(message = "Vui lòng nhập số lượng khách hàng")
+    private String customer;
     @NotNull(message = "Vui lòng nhập giá")
     private Double price;
     @NotBlank(message = "Vui lòng nhập mô tả")

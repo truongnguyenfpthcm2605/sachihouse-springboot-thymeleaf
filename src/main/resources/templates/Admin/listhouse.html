@@ -47,6 +47,7 @@
             <a th:href="@{/document/houses.xlsx}" download="houses.xlsx"  class="btn btn-success my-2 my-sm-0" >Export <i class="fa-solid fa-file-excel"></i></a>
 
             <select class="btn btn-light" style="margin-left: 5px" id="exampleFormControlSelect1" name="categoryTitle" onchange="this.form.submit()">
+                <option th:value="${all}"  th:selected="${cTitle == all}">Tất Cả</option>
                 <option th:each="item : ${categories}" th:selected="${cTitle == item.title}"  th:value="${item.title}" th:text="${item.title}"></option>
             </select>
         </form>
@@ -60,6 +61,7 @@
                         <h5 class="card-title" style="height: 100px" th:text="${house.title}"></h5>
 
                         <p class="card-text" style="font-weight: bold; color: red" >[[${#numbers.formatDecimal(house.price, 0, 'COMMA', 0, 'POINT')}]] VND</p>
+                        <p> <i class="fa-solid fa-users"></i> [[${house.customer}]] Số lượng khách</p>
                         <p> <i class="fa-solid fa-bed"></i>  [[${house.bedroom}]] Phòng ngủ</p>
                         <p> <i class="fa-solid fa-toilet"></i> [[${house.toilet}]] Toilet</p>
                         <div style="display: flex;justify-content: space-evenly;">

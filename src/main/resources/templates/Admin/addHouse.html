@@ -66,11 +66,18 @@
                 <span class="error" th:errors="*{title}"></span>
             </div>
             <div class="form-group">
+                <label>Số lượng khách hàng </label>
+                <input th:field="*{customer}" type="text" class="form-control"
+                       placeholder="nhập số lượng khách hàng">
+                <span class="error" th:errors="*{customer}"> </span>
+            </div>
+            <div class="form-group">
                 <label>Phòng Ngủ ( Số Phòng )</label>
                 <input th:field="*{bedroom}" type="text" class="form-control"
                        placeholder="nhập số lượng phòng">
                 <span class="error" th:errors="*{bedroom}"> </span>
             </div>
+
             <div class="form-group">
                 <label>Toilet ( Số Toilet )</label>
                 <input th:field="*{toilet}" type="text" class="form-control"
