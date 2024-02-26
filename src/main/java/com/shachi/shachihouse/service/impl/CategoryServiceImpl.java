@@ -18,55 +18,64 @@ import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class CategoryServiceImpl implements CategoryService {
-    private final CategoryRepository categoryService;
+    private final CategoryRepository categoryRepository;
 
     @Override
     @Transactional(
-            propagation = Propagation.REQUIRED
-            , isolation = Isolation.READ_COMMITTED,
+            propagation = Propagation.REQUIRED,
+            isolation = Isolation.READ_COMMITTED,
             rollbackFor = {Exception.class, Throwable.class}
     )
     public Category save(Category category) {
-        return categoryService.save(category);
+        return categoryRepository.save(category);
     }
 
     @Override
     @Transactional(
-            propagation = Propagation.REQUIRED
-            , isolation = Isolation.READ_COMMITTED,
+            propagation = Propagation.REQUIRED,
+            isolation = Isolation.READ_COMMITTED,
             rollbackFor = {Exception.class, Throwable.class}
     )
     public Category update(Category category) {
-        return categoryService.save(category);
+        return categoryRepository.save(category);
     }
 
     @Override
     public Optional<Category> findById(Long id) {
-        return categoryService.findById(id);
+        return categoryRepository.findById(id);
     }
 
     @Override
     @Transactional(
-            propagation = Propagation.REQUIRED
-            , isolation = Isolation.READ_COMMITTED,
+            propagation = Propagation.REQUIRED,
+            isolation = Isolation.READ_COMMITTED,
             rollbackFor = {Exception.class, Throwable.class}
     )
     public void deleteById(Long id) {
-            categoryService.deleteById(id);
+        categoryRepository.deleteById(id);
     }
 
     @Override
     public List<Category> findAll() {
-        return categoryService.findAll();
+        return categoryRepository.findAll();
     }
 
     @Override
     public List<Category> findAll(Sort sort) {
-        return categoryService.findAll(sort);
+        return categoryRepository.findAll(sort);
     }
 
     @Override
     public Page<Category> findAll(Pageable pageable) {
-        return categoryService.findAll(pageable);
+        return categoryRepository.findAll(pageable);
+    }
+
+    @Override
+    public Category findByTitle(String title) {
+        return categoryRepository.findByTitle(title);
+    }
+    @Override
+    public Category findCategoryById(Long categoryId) {
+        return categoryRepository.findById(categoryId).orElse(null);
     }
 }

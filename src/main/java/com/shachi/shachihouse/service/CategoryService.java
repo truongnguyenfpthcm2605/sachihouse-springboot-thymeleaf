@@ -16,4 +16,6 @@ public interface CategoryService {
     List<Category> findAll();
     List<Category> findAll(Sort sort);
     Page<Category> findAll(Pageable pageable);
+    Category findByTitle(String title);
+    Category findCategoryById(Long categoryId);
 }

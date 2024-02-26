@@ -18,6 +18,8 @@ public interface HouseService {
     List<House> findAll(Sort sort);
     Page<House> findAll(Pageable pageable);
     Page<House> findByKeyword(String keyword,String title, Pageable pageable);
+    List<House> findByCategoryId(Long categoryId);
+    List<House> searchByBedrooms(int bedrooms);
 
 
 

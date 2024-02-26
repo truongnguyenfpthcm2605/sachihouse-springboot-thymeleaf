@@ -53,7 +53,7 @@ public class HouseServiceImpl implements HouseService {
             rollbackFor = {Exception.class, Throwable.class}
     )
     public void deleteById(String id) {
-            houseRepository.deleteById(id);
+        houseRepository.deleteById(id);
     }
 
     @Override
@@ -72,9 +72,23 @@ public class HouseServiceImpl implements HouseService {
     }
 
     @Override
-    public Page<House> findByKeyword(String keyword,String title, Pageable pageable) {
-        return houseRepository.findByKeyword("%"+keyword+"%","%"+title+"%",pageable);
+    public Page<House> findByKeyword(String keyword, String title, Pageable pageable) {
+        return houseRepository.findByKeyword("%" + keyword + "%", "%" + title + "%", pageable);
     }
+
+    @Override
+    public List<House> findByCategoryId(Long categoryId) {
+        return houseRepository.findByCategoryId(categoryId);
+    }
+
+
+    @Override
+    public List<House> searchByBedrooms(int bedrooms) {
+        String bedroomsString = String.valueOf(bedrooms);
+        return houseRepository.findByBedroom(bedroomsString);
+    }
+
+
 
 
 }
