@@ -17,7 +17,11 @@ public interface HouseRepository extends JpaRepository<House,String> {
 
     List<House> findByCategoryId(Long categoryId);
 
-    List<House> findByBedroom(String bedroom);
+    @Query("select o from House  o where o.bedroom = :bedroom and o.category.id = :categoryId")
+    List<House> findByBedroom(@Param("bedroom") String bedroom ,@Param("categoryId") Long categoryId);
+
+    @Query("select o from House  o where o.customer like :customer and o.category.id = :categoryId")
+    List<House> searchByCustomer(@Param("customer") String customer, Long categoryId);
     List<House> findByCustomer(String customer);
 
 

@@ -17,8 +17,7 @@
 
 
 		<div class="row"  >
-
-				<div th:each="house : ${houses}" th:if="${house.category.id == category.id  }"  class="col-sm-3 col-md-3 col-lg-3 col-6 ftco-animate">
+				<div th:each="house : ${houses}" th:if="category.id == house.category.id"  class="col-sm-3 col-md-3 col-lg-3 col-6 ftco-animate">
 					<div  style="border: 1px solid #e6e6e6; background-color: #fff; margin-bottom: 30px;">
 						<img class="card-img-top" th:src="@{/images/__${house.images.split(',')[0]}__}" style="width: 100%; height: 230px" alt="Card image cap">
 

@@ -19,8 +19,9 @@ public interface HouseService {
     Page<House> findAll(Pageable pageable);
     Page<House> findByKeyword(String keyword,String title, Pageable pageable);
     List<House> findByCategoryId(Long categoryId);
-    List<House> searchByBedrooms(int bedrooms);
+    List<House> searchByBedrooms(int bedrooms, Long categoryId);
 
+    List<House> searchByCustomer(@Param("customer") String customer, Long categoryId);
 
 
 }

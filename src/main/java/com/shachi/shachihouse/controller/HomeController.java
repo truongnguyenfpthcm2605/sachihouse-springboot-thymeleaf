@@ -4,6 +4,7 @@ import com.shachi.shachihouse.entities.Category;
 import com.shachi.shachihouse.entities.House;
 import com.shachi.shachihouse.service.impl.CategoryServiceImpl;
 import com.shachi.shachihouse.service.impl.HouseServiceImpl;
+import com.shachi.shachihouse.utils.Session;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +20,7 @@ public class HomeController {
 
     private final HouseServiceImpl houseService;
     private final CategoryServiceImpl categoryService;
+    private final Session session;
 
 
 
@@ -52,31 +54,14 @@ public class HomeController {
         model.addAttribute("otherCategories", otherCategories);
         model.addAttribute("categoryLists", categoryLists);
 
-        Map<Category, List<House>> categoryHouseMap = new HashMap<>();
 
-        for (Category category : categories) {
-            List<House> categoryHouses = new ArrayList<>();
-            int count = 0;
-
-            for (House house : houses) {
-                if (house.getCategory().equals(category) && count < 4) {
-                    categoryHouses.add(house);
-                    count++;
-                }
-            }
-
-            categoryHouseMap.put(category, categoryHouses);
-        }
-
-        model.addAttribute("categoryHouseMap", categoryHouseMap);
         return "/home/index";
     }
     @GetMapping("/houses-by-category/{categoryId}")
     public String getHousesByCategory(Model model, @PathVariable Long categoryId) {
         List<House> houses = houseService.findByCategoryId(categoryId);
         List<Category> categories = categoryService.findAll();
-
-
+        session.setAttribute("categoryId",categoryId);
         model.addAttribute("houses", houses);
         model.addAttribute("categories", categories);
 
@@ -105,8 +90,13 @@ public class HomeController {
         model.addAttribute("homestayCategories", homestayCategories);
         model.addAttribute("villaCategories", villaCategories);
         model.addAttribute("otherCategories", otherCategories);
+
+
+
         return "/home/rooms";
+
     }
+
     @GetMapping("/detail/{id}")
     public String detail(Model model, @PathVariable String   id){
         Optional<House> house = houseService.findById(id);
@@ -135,7 +125,7 @@ public class HomeController {
 
     @GetMapping("/bedroom/search")
     public String performSearch(Model model, @RequestParam(name = "bedrooms") int bedrooms) {
-        List<House> searchResults = houseService.searchByBedrooms(bedrooms);
+        List<House> searchResults = houseService.searchByBedrooms(bedrooms,session.getAttribute("categoryId"));
 
         model.addAttribute("houses", searchResults);
         model.addAttribute("categories", categoryService.findAll());
@@ -145,10 +135,24 @@ public class HomeController {
 
     @PostMapping("/bedroom/search")
     public String performSearch(@RequestParam("bedrooms") int bedrooms, Model model) {
-        List<House> searchResults = houseService.searchByBedrooms(bedrooms);
-
+        Long categoryId = session.getAttribute("categoryId");
+        List<House> searchResults = houseService.searchByBedrooms(bedrooms, categoryId);
         model.addAttribute("searchResults", searchResults);
         return "home/rooms";
+    }
+
+    @PostMapping("/customer/search")
+    public String performSearch(@RequestParam("customer") String customer, Model model) {
+        Long categoryId = session.getAttribute("categoryId");
+        List<House> searchResults = houseService.searchByCustomer("%"+customer+"%", categoryId);
+        model.addAttribute("searchResults", searchResults);
+        return "home/rooms";
+    }
+
+
+    public List<House> getHouseHome(Long catgoryID){
+        List<House> houseCategory = houseService.findByCategoryId(catgoryID);
+        return houseCategory.subList(0,Optional.of(4).orElse(houseCategory.size()));
     }
 
 

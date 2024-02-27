@@ -83,12 +83,15 @@ public class HouseServiceImpl implements HouseService {
 
 
     @Override
-    public List<House> searchByBedrooms(int bedrooms) {
+    public List<House> searchByBedrooms(int bedrooms, Long categoryId) {
         String bedroomsString = String.valueOf(bedrooms);
-        return houseRepository.findByBedroom(bedroomsString);
+        return houseRepository.findByBedroom(bedroomsString, categoryId);
     }
 
-
+    @Override
+    public List<House> searchByCustomer(String customer, Long categoryId) {
+        return houseRepository.searchByCustomer(customer, categoryId);
+    }
 
 
 }
