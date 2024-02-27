@@ -9108,3 +9108,100 @@ textarea.form-control {
   100% {
     stroke-dasharray: 89, 200;
     stroke-dashoffset: -136px; } }
+
+.collapsed-menu {
+  background-color: #fff; /* Màu nền */
+  border: 1px solid #dddddd; /* Viền */
+  border-radius: 15px; /* Góc bo viền */
+}
+
+.collapsed-menu.active {
+  max-height: 200px; /* Chiều cao khi mở rộng */
+}
+
+.collapsed-menu > li {
+  margin-bottom: 10px; /* Khoảng cách giữa các mục */
+}
+
+.collapsed-menu > li a {
+  color: #333333; /* Màu chữ */
+
+  font-size: 12px; /* Kích thước chữ nhỏ hơn */
+  text-decoration: none; /* Gạch chân */
+  display: flex; /* Hiển thị dạng flex */
+  align-items: center; /* Căn chỉnh theo chiều dọc */
+  padding: 10px 15px; /* Khoảng cách giữa chữ và viền */
+  border-radius: 5px; /* Góc bo viền */
+  transition: background-color 0.3s, color 0.3s; /* Hiệu ứng màu và background khi hover */
+}
+
+.collapsed-menu > li a:hover {
+  color: #ffffff; /* Màu chữ khi hover */
+  background-color: #ff0000; /* Màu nền khi hover */
+}
+
+.collapsed-menu > li a img {
+  margin-right: 10px; /* Khoảng cách giữa hình ảnh và chữ */
+  width: 20px; /* Kích thước hình ảnh */
+  height: 20px;
+}
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.pagination .page-link {
+  display: inline-block;
+  padding: 8px 12px;
+  margin: 0 5px;
+  color: #333;
+  border-radius: 4px;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+
+.pagination .page-link:hover {
+  background-color: #eee;
+}
+
+.pagination .page-link.active {
+  background-color: #333;
+  color: #fff;
+}
+
+.see-more-wrapper a {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #8d703b;
+  color: #ffffff;
+  text-decoration: none;
+  text-transform: uppercase;
+
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.see-more-wrapper a:hover {
+  background-color: #aa8541;
+}
+.see-more-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.title-container {
+  height: 120px;
+  overflow: hidden;
+}
+
+.title {
+  max-height: 20%;
+  overflow-y: auto;
+}
+
+.active {
+  font-weight: bold;
+}
