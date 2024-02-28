@@ -38,11 +38,11 @@
 <div>
     <nav class="navbar navbar-light bg-light justify-content-between" style="width: 80%; margin: 0 auto;">
         <a class="navbar-brand">Danh Sách Thông Tin</a>
-        <form th:action="@{/admin/information}" class="form-inline">
+        <form th:action="@{/admin/information/}" class="form-inline">
             <input class="form-control mr-sm-2" type="search" th:value="${title}" name="title" placeholder="Search" aria-label="Search">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Tìm <i
                     class="fa-solid fa-magnifying-glass"></i></button>
-            <button style="margin-left: 5px;" class="btn btn-primary my-2 my-sm-0" type="button" data-toggle="modal" data-target="#exampleModal2">Thêm <i
+            <button style="margin-left: 5px;" class="btn btn-primary my-2 my-sm-0" type="button" data-toggle="modal" data-target="#exampleModaladd">Thêm <i
                     class="fa-solid fa-plus"></i></button>
             <a th:href="@{/document/information.xlsx}" download="information.xlsx" style="margin-left: 5px;" class="btn btn-success my-2 my-sm-0" type="button">Export <i
                     class="fa-solid fa-file-excel"></i></a>
@@ -111,13 +111,13 @@
                 </table>
                 <div class="container" style="text-align: center; margin-top: 20px">
 
-                    <a class="btn btn-light" th:href="@{|/admin/information?page=${page - 1}&title=${title}|}"
+                    <a class="btn btn-light" th:href="@{|/admin/information/?page=${page - 1}&title=${title}|}"
                        th:if="${page > 1}"><i class="fa-solid fa-backward"></i></a>
                     <a class="btn btn-light"
                        th:each="i : ${#numbers.sequence(1,list.totalPages)}"
-                       th:href="@{|/admin/information?page=${i}&title=${title}|}"
+                       th:href="@{|/admin/information/?page=${i}&title=${title}|}"
                        th:class="${page == i} ? 'btn btn-primary' : 'btn btn-light'">[[${i}]]</a>
-                    <a class="btn btn-light" th:href="@{|/admin/information?page=${page + 1}&title=${title}|}"
+                    <a class="btn btn-light" th:href="@{|/admin/information/?page=${page + 1}&title=${title}|}"
                        th:if="${page < list.totalPages}"> <i class="fa-solid fa-forward"></i></a>
                 </div>
             </div>
@@ -133,7 +133,7 @@
 <!-- Modal -->
 
 
-<div class="modal fade" id="exampleModal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+<div class="modal fade" id="exampleModaladd" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
      aria-hidden="true">
     <div class="modal-dialog" role="document">
         <div class="modal-content">

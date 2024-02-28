@@ -2,6 +2,7 @@ package com.shachi.shachihouse.config;
 
 import com.shachi.shachihouse.security.oauth2.OAuth2UserDetailService;
 import com.shachi.shachihouse.security.userprincal.UserDetailService;
+import com.shachi.shachihouse.utils.Roles;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,7 +25,6 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.thymeleaf.extras.springsecurity6.dialect.SpringSecurityDialect;
-import org.thymeleaf.spring6.SpringTemplateEngine;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -65,6 +65,7 @@ public class SecurityConfig {
                     auth.requestMatchers(HttpMethod.GET,"/index").permitAll();
                     auth.requestMatchers("/auth/**").permitAll();
                     auth.requestMatchers("/oauth2/authorization").permitAll();
+                    auth.requestMatchers("/admin/**").hasAuthority(Roles.ADMIN.name());
                     auth.anyRequest().permitAll();
 
                 })
@@ -74,7 +75,6 @@ public class SecurityConfig {
                         .failureUrl("/auth/login/error")
                         .usernameParameter("username")
                         .passwordParameter("password")
-
                 )
                 .rememberMe(remember -> remember.rememberMeParameter("remember")
                         .tokenValiditySeconds(86400)
@@ -93,7 +93,6 @@ public class SecurityConfig {
                                .userInfoEndpoint(userInfoEndpointConfig -> userInfoEndpointConfig.userService(oAuth2UserDetailService))
                                 .defaultSuccessUrl("/auth/oauth2")
                                 .failureUrl("/auth/oauth2/fail")
-
                 )
                 .exceptionHandling(ex -> ex.accessDeniedPage("/auth/denied"))
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))

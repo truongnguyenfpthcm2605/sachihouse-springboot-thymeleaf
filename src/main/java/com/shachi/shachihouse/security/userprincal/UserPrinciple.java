@@ -4,6 +4,7 @@ import com.shachi.shachihouse.entities.Account;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.Collection;
 import java.util.List;
@@ -16,6 +17,7 @@ public class UserPrinciple implements UserDetails {
     private String password;
     private String fullname;
     private List<? extends GrantedAuthority> authorities;
+    BCryptPasswordEncoder p = new BCryptPasswordEncoder();
 
     public UserPrinciple(Account account){
         this.username = account.getEmail();

@@ -95,7 +95,7 @@ public class AuthenticationController {
                 .roles(roles)
                 .build()
         );
-        return new ResponseEntity<>(account , HttpStatus.OK );
+        return new ResponseEntity<>(account, HttpStatus.OK);
     }
 
 
