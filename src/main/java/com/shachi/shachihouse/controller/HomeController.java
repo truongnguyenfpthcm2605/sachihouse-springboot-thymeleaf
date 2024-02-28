@@ -26,9 +26,7 @@ public class HomeController {
 
     @GetMapping("/index")
     public String index(Model model) {
-        List<House> houses = houseService.findAll();
         List<Category> categories = categoryService.findAll();
-        List<List<Category>> categoryLists = new ArrayList<>();
         List<Category> homestayCategories = new ArrayList<>();
         List<Category> villaCategories = new ArrayList<>();
         List<Category> otherCategories = new ArrayList<>();
@@ -43,17 +41,18 @@ public class HomeController {
             }
         }
 
-        categoryLists.add(homestayCategories); // Add each category list to the main list
-        categoryLists.add(villaCategories);
-        categoryLists.add(otherCategories);
+        List<List<House>> houseLists = new ArrayList<>();
 
-        model.addAttribute("houses", houses);
+        for (Category category : categories) {
+            List<House> categoryHouses = houseService.findByCategoryId(category.getId());
+            houseLists.add(categoryHouses);
+        }
+
         model.addAttribute("categories", categories);
         model.addAttribute("homestayCategories", homestayCategories);
         model.addAttribute("villaCategories", villaCategories);
         model.addAttribute("otherCategories", otherCategories);
-        model.addAttribute("categoryLists", categoryLists);
-
+        model.addAttribute("houseLists", houseLists);
 
         return "/home/index";
     }
@@ -67,6 +66,48 @@ public class HomeController {
 
 
         return "/home/rooms";
+    }
+    @GetMapping("/contact")
+    public  String contact(Model model){
+        List<Category> categories = categoryService.findAll();
+        List<Category> homestayCategories = new ArrayList<>();
+        List<Category> villaCategories = new ArrayList<>();
+        List<Category> otherCategories = new ArrayList<>();
+        for (Category category : categories) {
+            if (category.getTitle().contains("HOMESTAY")) {
+                homestayCategories.add(category);
+            } else if (category.getTitle().contains("VILLA")) {
+                villaCategories.add(category);
+            } else {
+                otherCategories.add(category); // Thêm vào danh sách danh mục khác
+            }
+        }
+        model.addAttribute("categories", categories);
+        model.addAttribute("homestayCategories", homestayCategories);
+        model.addAttribute("villaCategories", villaCategories);
+        model.addAttribute("otherCategories", otherCategories);
+        return "/home/contact";
+    }
+    @GetMapping("/about")
+    public  String about(Model model){
+        List<Category> categories = categoryService.findAll();
+        List<Category> homestayCategories = new ArrayList<>();
+        List<Category> villaCategories = new ArrayList<>();
+        List<Category> otherCategories = new ArrayList<>();
+        for (Category category : categories) {
+            if (category.getTitle().contains("HOMESTAY")) {
+                homestayCategories.add(category);
+            } else if (category.getTitle().contains("VILLA")) {
+                villaCategories.add(category);
+            } else {
+                otherCategories.add(category); // Thêm vào danh sách danh mục khác
+            }
+        }
+        model.addAttribute("categories", categories);
+        model.addAttribute("homestayCategories", homestayCategories);
+        model.addAttribute("villaCategories", villaCategories);
+        model.addAttribute("otherCategories", otherCategories);
+        return "/home/about";
     }
     @GetMapping("/rooms")
     public String room(Model model) {
@@ -126,10 +167,27 @@ public class HomeController {
     @GetMapping("/bedroom/search")
     public String performSearch(Model model, @RequestParam(name = "bedrooms") int bedrooms) {
         List<House> searchResults = houseService.searchByBedrooms(bedrooms,session.getAttribute("categoryId"));
+        List<Category> categories = categoryService.findAll();
 
+        List<Category> homestayCategories = new ArrayList<>();
+        List<Category> villaCategories = new ArrayList<>();
+        List<Category> otherCategories = new ArrayList<>();
+
+        for (Category category : categories) {
+            if (category.getTitle().contains("HOMESTAY")) {
+                homestayCategories.add(category);
+            } else if (category.getTitle().contains("VILLA")) {
+                villaCategories.add(category);
+            } else {
+                otherCategories.add(category); // Thêm vào danh sách danh mục khác
+            }
+        }
         model.addAttribute("houses", searchResults);
         model.addAttribute("categories", categoryService.findAll());
-
+        model.addAttribute("categories", categories);
+        model.addAttribute("homestayCategories", homestayCategories);
+        model.addAttribute("villaCategories", villaCategories);
+        model.addAttribute("otherCategories", otherCategories);
         return "/home/rooms";
     }
 
@@ -137,7 +195,26 @@ public class HomeController {
     public String performSearch(@RequestParam("bedrooms") int bedrooms, Model model) {
         Long categoryId = session.getAttribute("categoryId");
         List<House> searchResults = houseService.searchByBedrooms(bedrooms, categoryId);
+        List<Category> categories = categoryService.findAll();
+
+        List<Category> homestayCategories = new ArrayList<>();
+        List<Category> villaCategories = new ArrayList<>();
+        List<Category> otherCategories = new ArrayList<>();
+
+        for (Category category : categories) {
+            if (category.getTitle().contains("HOMESTAY")) {
+                homestayCategories.add(category);
+            } else if (category.getTitle().contains("VILLA")) {
+                villaCategories.add(category);
+            } else {
+                otherCategories.add(category); // Thêm vào danh sách danh mục khác
+            }
+        }
         model.addAttribute("searchResults", searchResults);
+        model.addAttribute("categories", categories);
+        model.addAttribute("homestayCategories", homestayCategories);
+        model.addAttribute("villaCategories", villaCategories);
+        model.addAttribute("otherCategories", otherCategories);
         return "home/rooms";
     }
 
@@ -145,7 +222,26 @@ public class HomeController {
     public String performSearch(@RequestParam("customer") String customer, Model model) {
         Long categoryId = session.getAttribute("categoryId");
         List<House> searchResults = houseService.searchByCustomer("%"+customer+"%", categoryId);
+        List<Category> categories = categoryService.findAll();
+
+        List<Category> homestayCategories = new ArrayList<>();
+        List<Category> villaCategories = new ArrayList<>();
+        List<Category> otherCategories = new ArrayList<>();
+
+        for (Category category : categories) {
+            if (category.getTitle().contains("HOMESTAY")) {
+                homestayCategories.add(category);
+            } else if (category.getTitle().contains("VILLA")) {
+                villaCategories.add(category);
+            } else {
+                otherCategories.add(category); // Thêm vào danh sách danh mục khác
+            }
+        }
         model.addAttribute("searchResults", searchResults);
+        model.addAttribute("categories", categories);
+        model.addAttribute("homestayCategories", homestayCategories);
+        model.addAttribute("villaCategories", villaCategories);
+        model.addAttribute("otherCategories", otherCategories);
         return "home/rooms";
     }
 

@@ -9119,25 +9119,26 @@ textarea.form-control {
   max-height: 200px; /* Chiều cao khi mở rộng */
 }
 
-.collapsed-menu > li {
-  margin-bottom: 10px; /* Khoảng cách giữa các mục */
+.collapsed-menu > div {
+
 }
 
-.collapsed-menu > li a {
+.collapsed-menu > div a {
   color: #333333; /* Màu chữ */
 
   font-size: 12px; /* Kích thước chữ nhỏ hơn */
   text-decoration: none; /* Gạch chân */
   display: flex; /* Hiển thị dạng flex */
   align-items: center; /* Căn chỉnh theo chiều dọc */
-  padding: 10px 15px; /* Khoảng cách giữa chữ và viền */
-  border-radius: 5px; /* Góc bo viền */
+  padding: 5px 10px; /* Khoảng cách giữa chữ và viền */
+  border-radius: 10px; /* Góc bo viền */
   transition: background-color 0.3s, color 0.3s; /* Hiệu ứng màu và background khi hover */
 }
 
-.collapsed-menu > li a:hover {
+.collapsed-menu > div a:hover {
   color: #ffffff; /* Màu chữ khi hover */
-  background-color: #ff0000; /* Màu nền khi hover */
+  background-color: #8d703b; /* Màu nền khi hover */
+
 }
 
 .collapsed-menu > li a img {
@@ -9204,4 +9205,32 @@ textarea.form-control {
 
 .active {
   font-weight: bold;
+}
+.marquee-container {
+  overflow: hidden;
+  width: 100%;
+
+  padding: 10px;
+}
+
+.marquee {
+  display: inline-block;
+  white-space: nowrap;
+  animation: 20s linear infinite;
+}
+
+.marquee-text {
+  font-family: "Arial", sans-serif;
+  font-size: 20px;
+  color: #8d703b;
+  text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+@keyframes marquee {
+  0% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
 }
