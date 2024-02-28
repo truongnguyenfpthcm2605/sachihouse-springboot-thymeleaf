@@ -29,16 +29,23 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-12 room-single mt-4 mb-5 ftco-animate">
+                    <div  class="col-md-12 room-single mt-4 mb-5 ftco-animate">
                         <th:utext th:utext="${house.description}"></th:utext>
                         <div class="d-md-flex mt-5 mb-5">
-                            <ul class="list">
-                                <li><span>Số Lượng khách:</span> </li>
-                                <li><span>Số Phòng Ngủ:</span> [[${house.bedroom}]]</li>
-                            </ul>
-                            <ul class="list ml-md-5">
-                                <li><span>Số Phòng WC :</span> [[${house.toilet}]]</li>
-                                <li ><span>Địa chỉ:</span> <span th:text="${house.address}"></span> </li>
+                            <ul style="list-style-type: none; font-family: Arial, sans-serif; font-size: 16px;">
+                                <li style="margin-bottom: 10px;">
+                                    <span style="font-weight: bold;">Số Lượng khách:</span> [[${house.customer}]]
+                                </li><br>
+                                <li style="margin-bottom: 10px;">
+                                    <span style="font-weight: bold;">Số Phòng Ngủ:</span> [[${house.bedroom}]]
+                                </li><br>
+
+                                <li style="margin-bottom: 10px;">
+                                    <span style="font-weight: bold;">Số Phòng WC:</span> [[${house.toilet}]]
+                                </li><br>
+                                <li style="margin-bottom: 10px;">
+                                    <span style="font-weight: bold;">Địa chỉ:</span> <span style="font-weight: bold; text-decoration: underline;" th:text="${house.address}"></span>
+                                </li>
                             </ul>
                         </div>
                     </div>
@@ -52,11 +59,15 @@
             <div class="col-lg-4 sidebar ftco-animate">
 
                 <div   class="sidebar-box ftco-animate">
-                    <h3 >DANH MỤC</h3>
+                    <h3 style="text-align: center;color: #8d703b;font-size: 28px;
+                        font-weight: bold;
+                        text-transform: uppercase;
+                        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+                        letter-spacing: 2px;" >DANH MỤC</h3>
                     <div th:each="category: ${categories}" class="categories text p-3 text-xl-center">
 
 
-                        <li><a href="#" th:text="${category.title}"></a></li><hr>
+                        <li><a th:href="@{/houses-by-category/{categoryId}(categoryId=${category.id})}" th:text="${category.title}"></a></li><hr>
 
                     </div><hr>
                 </div>
