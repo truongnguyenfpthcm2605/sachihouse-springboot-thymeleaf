@@ -17,7 +17,6 @@ public class UserPrinciple implements UserDetails {
     private String password;
     private String fullname;
     private List<? extends GrantedAuthority> authorities;
-    BCryptPasswordEncoder p = new BCryptPasswordEncoder();
 
     public UserPrinciple(Account account){
         this.username = account.getEmail();

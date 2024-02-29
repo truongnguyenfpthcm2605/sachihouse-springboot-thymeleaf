@@ -9,14 +9,14 @@
 
 
 <!-- Login Form -->
-<form action="/auth/login" style="width: 80%; margin: 0 auto" method="post">
+<form th:action="@{/auth/login}" style="width: 80%; margin: 0 auto" method="post">
     <div class="modal-header">
         <h4 class="modal-title" style="margin: auto;">Đăng nhập</h4>
 
     </div>
     <div class="modal-body">
         <div class="mb-3">
-            <label for="Username">Tài khoản<span class="text-danger">*</span></label>
+            <label for="Username">Email<span class="text-danger">*</span></label>
             <input type="text" name="username" class="form-control" id="Username" placeholder="Nhập tài khoản">
         </div>
 
@@ -25,7 +25,7 @@
             <input type="text" name="password" class="form-control" id="Password" placeholder="Nhập mật khẩu">
         </div>
         <div class="mb-3" style="margin-left: 20px">
-            <input class="form-check-input" name="remember" type="checkbox" value="" id="remember" >
+            <input class="form-check-input" name="remember" type="checkbox" value="" id="remember">
             <label class="form-check-label" for="remember">Remember Me</label>
 
         </div>

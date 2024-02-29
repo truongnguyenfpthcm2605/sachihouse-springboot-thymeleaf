@@ -24,7 +24,6 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import org.thymeleaf.extras.springsecurity6.dialect.SpringSecurityDialect;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -56,7 +55,6 @@ public class SecurityConfig {
     }
 
 
-
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable).cors(cr -> cr.configurationSource(corsConfigurationSource()))
@@ -64,10 +62,7 @@ public class SecurityConfig {
                     auth.requestMatchers(HttpMethod.GET,"/health").permitAll();
                     auth.requestMatchers(HttpMethod.GET,"/index").permitAll();
                     auth.requestMatchers("/auth/**").permitAll();
-                    auth.requestMatchers("/oauth2/authorization").permitAll();
-                    auth.requestMatchers("/admin/**").hasAuthority(Roles.ADMIN.name());
                     auth.anyRequest().permitAll();
-
                 })
                 .formLogin(login -> login.loginPage("/auth/login/form")
                         .loginProcessingUrl("/auth/login")
@@ -113,10 +108,6 @@ public class SecurityConfig {
         return source;
     }
 
-    @Bean
-    public SpringSecurityDialect springSecurityDialect() {
-        return new SpringSecurityDialect();
-    }
 
 
 }

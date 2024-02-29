@@ -10,6 +10,9 @@ public class Common {
     public static final String urlFileException = "/Error/FileException";
     public static final String urlRuntimeExceptionCustom = "/Error/RuntimeExceptionCustom";
 
+    public static final String Page404  = "error/404";
+
+
     public static Integer handlePage(String pageParam){
         int page = 0;
         if (pageParam != null && !pageParam.isEmpty()) {

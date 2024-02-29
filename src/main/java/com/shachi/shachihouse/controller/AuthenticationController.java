@@ -1,6 +1,7 @@
 package com.shachi.shachihouse.controller;
 
 import com.shachi.shachihouse.dtos.request.AccountDTO;
+import com.shachi.shachihouse.dtos.request.InformationDTO;
 import com.shachi.shachihouse.entities.Account;
 import com.shachi.shachihouse.entities.Role;
 import com.shachi.shachihouse.service.impl.AccountServiceImpl;
@@ -8,9 +9,13 @@ import com.shachi.shachihouse.service.impl.RoleServiceImpl;
 import com.shachi.shachihouse.utils.Common;
 import com.shachi.shachihouse.utils.Provider;
 import com.shachi.shachihouse.utils.Roles;
+import com.shachi.shachihouse.utils.Session;
+import jakarta.servlet.ServletContext;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -29,6 +34,8 @@ public class AuthenticationController {
     private final AccountServiceImpl accountService;
     private final RoleServiceImpl roleService;
     private final PasswordEncoder passwordEncoder;
+    private final Session session;
+
 
 
     @GetMapping("/auth/oauth2")
@@ -49,13 +56,14 @@ public class AuthenticationController {
     }
 
     @GetMapping("/auth/login/success")
-    public String loginSuccess() {
-        return "home/index";
+    public String loginSuccess(Model model) {
+        return "redirect:/index";
     }
 
     @GetMapping("/auth/logout/success")
     public String logoutSuccess() {
-        return "home/index";
+        session.removeAttribute(Common.ACCOUNT_SESSION);
+        return "redirect:/index";
     }
 
     @GetMapping("/auth/login/error")
@@ -96,6 +104,16 @@ public class AuthenticationController {
                 .build()
         );
         return new ResponseEntity<>(account, HttpStatus.OK);
+    }
+
+    @ModelAttribute("information")
+    public InformationDTO getInformationDTO(){
+        return new InformationDTO();
+    }
+
+    @ModelAttribute("account")
+    public Object getAccount(){
+        return  session.getAttribute(Common.ACCOUNT_SESSION);
     }
 
 

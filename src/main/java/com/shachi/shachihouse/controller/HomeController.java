@@ -1,9 +1,13 @@
 package com.shachi.shachihouse.controller;
 
+import com.shachi.shachihouse.dtos.request.InformationDTO;
 import com.shachi.shachihouse.entities.Category;
 import com.shachi.shachihouse.entities.House;
+import com.shachi.shachihouse.entities.Information;
 import com.shachi.shachihouse.service.impl.CategoryServiceImpl;
 import com.shachi.shachihouse.service.impl.HouseServiceImpl;
+import com.shachi.shachihouse.service.impl.InformationServiceImpl;
+import com.shachi.shachihouse.utils.Common;
 import com.shachi.shachihouse.utils.Session;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -20,8 +24,8 @@ public class HomeController {
 
     private final HouseServiceImpl houseService;
     private final CategoryServiceImpl categoryService;
+    private final InformationServiceImpl informationService;
     private final Session session;
-
 
 
     @GetMapping("/index")
@@ -246,9 +250,28 @@ public class HomeController {
     }
 
 
-    public List<House> getHouseHome(Long catgoryID){
-        List<House> houseCategory = houseService.findByCategoryId(catgoryID);
-        return houseCategory.subList(0,Optional.of(4).orElse(houseCategory.size()));
+
+
+    @ModelAttribute("information")
+    public InformationDTO getInformationDTO(){
+        return new InformationDTO();
+    }
+
+    @ModelAttribute("account")
+    public Object getAccount(){
+        return  session.getAttribute(Common.ACCOUNT_SESSION);
+    }
+
+    @PostMapping("/information/save")
+    public String save(@ModelAttribute("information") InformationDTO informationDTO
+    ) {
+        informationService.save(Information.builder()
+                .phone(informationDTO.getPhone())
+                .email(informationDTO.getEmail())
+                .fullname(informationDTO.getFullname())
+                .isactive(true).build());
+
+        return "redirect:/index";
     }
 
 

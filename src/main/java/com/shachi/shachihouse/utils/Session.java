@@ -13,7 +13,8 @@ public class Session {
     }
 
     public <T> T getAttribute(String name) {
-        return (T) session.getAttribute(name);
+        T s = (T) session.getAttribute(name);
+        return s == null ? null : s;
     }
     public void removeAttribute(String name) {
         session.removeAttribute(name);

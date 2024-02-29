@@ -29,7 +29,7 @@ public class Account extends BaseEntity implements Serializable {
     private String providerID;
     private Boolean isactive;
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.DETACH)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "authorities",
             joinColumns = @JoinColumn(name = "accountId"),
             inverseJoinColumns = @JoinColumn(name = "roleId")
