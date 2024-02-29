@@ -24,14 +24,14 @@
 
 					<div class="text p-3 text-xl-center">
 						<div class="title-container">
-							<a class="title" th:href="@{/detail/{id}(id=${house.id})}" th:text="${house.title}"></a>
+							<a style="color: black" class="title" th:href="@{/detail/{id}(id=${house.id})}" th:text="${house.title}"></a>
 						</div>
 						<hr>
 						<div class="list"  style="color: #8d703b; text-align: center">
-							<div><span><i class="fa-solid fa-user-group"></i> Lượng khách: </span>[[${house.customer}]]</div>
-							<div><span><i class="fa-solid fa-bed"></i> Phòng Ngủ: </span>[[${house.bedroom}]]</div>
-							<div><span><i class="fa-solid fa-toilet"></i> Toilet: </span>[[${house.toilet}]]</div>
-							<div><span><i class="fa-solid fa-money-bill-1"></i> Giá Thuê:</span> Liên Hệ</div>
+							<div><span><i class="fa-solid fa-user-group"></i> Số khách: </span><span style="color: black">[[${house.customer}]]</span> </div>
+							<div><span><i class="fa-solid fa-bed"></i> Phòng Ngủ: </span> <span style="color: black">[[${house.bedroom}]]</span></div>
+							<div><span><i class="fa-solid fa-toilet"></i> Toilet: </span><span style="color: black">[[${house.toilet}]]</span></div>
+							<div><span><i class="fa-solid fa-money-bill-1"></i> Giá Thuê:</span><span style="color: black"> Liên Hệ</span></div>
 						</div>
 					</div>
 				</div>

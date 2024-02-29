@@ -16,13 +16,7 @@
             <div class="col-lg-8">
                 <div class="row"  th:if="${house}">
                     <div class="col-md-12 ftco-animate">
-                        <h4 style="color: #8d703b;
-
-                        font-size: 28px;
-                        font-weight: bold;
-                        text-transform: uppercase;
-                        text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
-                        letter-spacing: 2px;" class="mb-4" th:text="${house.title}"></h4>
+                        <p style="font-size: 25px; color: black" class="mb-4" th:text="${house.title}"></p>
                         <div class="single-slider owl-carousel">
                             <div th:each="image : ${house.images.split(',')}" class="item">
                                 <img class="card-img-top" th:src="@{/images/__${image}__}" style="width: 100%; height: 400px;"  alt="Card image cap">
@@ -30,21 +24,23 @@
                         </div>
                     </div>
                     <div  class="col-md-12 room-single mt-4 mb-5 ftco-animate">
+                        <div style="color: black">
                         <th:utext th:utext="${house.description}"></th:utext>
+                        </div>
                         <div class="d-md-flex mt-5 mb-5">
                             <ul style="list-style-type: none; font-family: Arial, sans-serif; font-size: 16px;">
                                 <li style="margin-bottom: 10px;">
-                                    <span style="font-weight: bold;">Số Lượng khách:</span> [[${house.customer}]]
+                                    <span style="font-weight: bold;color: #8d703b">Số Lượng khách:</span> <span style="color: black">[[${house.customer}]]</span>
                                 </li><br>
                                 <li style="margin-bottom: 10px;">
-                                    <span style="font-weight: bold;">Số Phòng Ngủ:</span> [[${house.bedroom}]]
+                                    <span style="font-weight: bold;color: #8d703b">Số Phòng Ngủ:</span> <span style="color: black">[[${house.bedroom}]]</span>
                                 </li><br>
 
                                 <li style="margin-bottom: 10px;">
-                                    <span style="font-weight: bold;">Số Phòng WC:</span> [[${house.toilet}]]
+                                    <span style="font-weight: bold;color: #8d703b">Số Phòng WC:</span> <span style="color: black">[[${house.toilet}]]</span>
                                 </li><br>
                                 <li style="margin-bottom: 10px;">
-                                    <span style="font-weight: bold;">Địa chỉ:</span> <span style="font-weight: bold; text-decoration: underline;" th:text="${house.address}"></span>
+                                    <span style="font-weight: bold;color: #8d703b">Địa chỉ:</span> <span style="font-weight: bold; text-decoration: underline;color: black" th:text="${house.address}"></span>
                                 </li>
                             </ul>
                         </div>

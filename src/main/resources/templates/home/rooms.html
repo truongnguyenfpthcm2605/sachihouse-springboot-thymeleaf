@@ -25,14 +25,14 @@
 							</a>
 
 							<div class="text p-3 text-center">
-								<div class="title-container">
-									<a  class="title" th:href="@{/detail/{id}(id=${house.id})}" th:text="${house.title}"></a>
+								<div  class="title-container">
+									<a style="color: black" class="title" th:href="@{/detail/{id}(id=${house.id})}" th:text="${house.title}"></a>
 								</div><hr>
 								<ul class="list">
-									<li><span><i class="fa-solid fa-user-group"></i> Lượng khách: </span>[[${house.customer}]]</li>
+									<li><span><i class="fa-solid fa-user-group"></i> Số khách: </span>[[${house.customer}]]</li>
 									<li> <span> <i class="fa-solid fa-bed"></i> Phòng Ngủ: </span>[[${house.bedroom}]]</li>
 									<li> <span> <i class="fa-solid fa-toilet"></i> Toilet: </span>[[${house.toilet}]] </li>
-									<li><span> <i class="fa-solid fa-money-bill-1"></i> Giá Thuê:</span> Liên Hệ</li>
+									<li><span> <i class="fa-solid fa-money-bill-1"></i> Giá Từ:</span> Liên hệ</li>
 								</ul>
 
 							</div>
@@ -47,8 +47,8 @@
 							</a>
 
 							<div class="text p-3 text-center">
-								<div class="title-container">
-									<a  class="title" th:href="@{/detail/{id}(id=${house.id})}" th:text="${house.title}"></a>
+								<div class="title-container" >
+									<a style="color: black" class="title" th:href="@{/detail/{id}(id=${house.id})}" th:text="${house.title}"></a>
 								</div><hr>
 								<ul class="list">
 									<li><span><i class="fa-solid fa-user-group"></i> Lượng khách: </span>[[${house.customer}]]</li>
