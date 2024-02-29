@@ -15,6 +15,11 @@ import java.util.stream.Collectors;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
+    @ExceptionHandler({Exception.class, Throwable.class})
+    public String handlePage404(Exception e){
+        return Common.Page404;
+    }
+
     @ExceptionHandler(FileException.class)
     public String handleFileException(FileException ex, Model model) {
         model.addAttribute("errorMessage", ex.getMessage());

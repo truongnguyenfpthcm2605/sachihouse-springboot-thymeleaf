@@ -22,7 +22,7 @@ public interface HouseRepository extends JpaRepository<House,String> {
 
     @Query("select o from House  o where o.customer like :customer and o.category.id = :categoryId")
     List<House> searchByCustomer(@Param("customer") String customer, Long categoryId);
-    List<House> findByCustomer(String customer);
+
 
 
 

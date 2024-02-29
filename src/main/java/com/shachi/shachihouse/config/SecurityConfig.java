@@ -2,6 +2,7 @@ package com.shachi.shachihouse.config;
 
 import com.shachi.shachihouse.security.oauth2.OAuth2UserDetailService;
 import com.shachi.shachihouse.security.userprincal.UserDetailService;
+import com.shachi.shachihouse.utils.Roles;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -23,8 +24,6 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
-import org.thymeleaf.extras.springsecurity6.dialect.SpringSecurityDialect;
-import org.thymeleaf.spring6.SpringTemplateEngine;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -56,7 +55,6 @@ public class SecurityConfig {
     }
 
 
-
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable).cors(cr -> cr.configurationSource(corsConfigurationSource()))
@@ -64,9 +62,7 @@ public class SecurityConfig {
                     auth.requestMatchers(HttpMethod.GET,"/health").permitAll();
                     auth.requestMatchers(HttpMethod.GET,"/index").permitAll();
                     auth.requestMatchers("/auth/**").permitAll();
-                    auth.requestMatchers("/oauth2/authorization").permitAll();
                     auth.anyRequest().permitAll();
-
                 })
                 .formLogin(login -> login.loginPage("/auth/login/form")
                         .loginProcessingUrl("/auth/login")
@@ -74,7 +70,6 @@ public class SecurityConfig {
                         .failureUrl("/auth/login/error")
                         .usernameParameter("username")
                         .passwordParameter("password")
-
                 )
                 .rememberMe(remember -> remember.rememberMeParameter("remember")
                         .tokenValiditySeconds(86400)
@@ -93,7 +88,6 @@ public class SecurityConfig {
                                .userInfoEndpoint(userInfoEndpointConfig -> userInfoEndpointConfig.userService(oAuth2UserDetailService))
                                 .defaultSuccessUrl("/auth/oauth2")
                                 .failureUrl("/auth/oauth2/fail")
-
                 )
                 .exceptionHandling(ex -> ex.accessDeniedPage("/auth/denied"))
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
@@ -114,10 +108,6 @@ public class SecurityConfig {
         return source;
     }
 
-    @Bean
-    public SpringSecurityDialect springSecurityDialect() {
-        return new SpringSecurityDialect();
-    }
 
 
 }

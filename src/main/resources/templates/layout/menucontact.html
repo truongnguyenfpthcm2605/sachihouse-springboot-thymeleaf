@@ -10,7 +10,7 @@
        <!-- <i class="icon-cps-close"></i> -->
     </label>
     <div class="fab-wheel">
-       <a class="fab-action fab-action-1" onclick="Tawk_API.showWidget();Tawk_API.maximize();" rel="nofollow" target="_blank">
+       <a class="fab-action fab-action-1" data-toggle="modal" data-target="#exampleModaladd2">
           <span class="fab-title">Để lại thông tin</span>
           <div class="fab-button fab-button-1" ><i class="icon-cps-local"></i></div>
        </a>
@@ -18,7 +18,10 @@
           <span class="fab-title">Gọi trực tiếp</span>
           <div class="fab-button fab-button-2"><i class="icon-cps-phone"></i></div>
        </a>
+
        <a class="fab-action fab-action-3" href="https://www.facebook.com/messages/t/100243112597122"  rel="nofollow">
+
+   
           <span class="fab-title">Chat ngay</span>
           <div class="fab-button fab-button-3"><i class="icon-cps-chat"></i></div>
        </a>
@@ -35,5 +38,39 @@
     </div>
     <div class="devvn_bg"></div>
  </div>
+   <div class="modal fade" id="exampleModaladd2" style="z-index: 10000000" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+      <div class="modal-dialog" role="document">
+         <div class="modal-content">
+            <div class="modal-header">
+               <h5 class="modal-title">Thêm thông tin</h5>
+               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+               </button>
+            </div>
+            <div class="modal-body">
+               <form th:action="@{/information/save}" method="post" th:object="${information}">
+                  <div class="form-group">
+                     <label >Họ và Tên</label>
+                     <input type="text" th:field="*{fullname}" class="form-control"  aria-describedby="emailHelp">
+                  </div>
+                  <div class="form-group">
+                     <label >Số điện thoại</label>
+                     <input type="text" th:field="*{phone}" class="form-control"  >
+                  </div>
+                  <div class="form-group">
+                     <label >Email</label>
+                     <input type="email" class="form-control" th:field="*{email}" >
+                  </div>
 
+                  <button class="btn btn-success">Thêm</button>
+
+
+
+               </form>
+            </div>
+
+         </div>
+      </div>
+   </div>
 </div>

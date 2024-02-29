@@ -32,12 +32,14 @@ public class InformationController {
         Model model
     ){
         excel.ExportInformation(informationService.findAll());
+        System.out.println(title);
         int p = Common.handlePage(page);
         Page<Information> list = informationService.findAll("%"+title+"%",SortAndPage.getPage(p,PAGE_SIZE,SortAndPage.getSortDown("email")));
         model.addAttribute("list", list);
         model.addAttribute("page", p+1);
         model.addAttribute("title", title);
         model.addAttribute("information", new InformationDTO());
+        System.out.println("hello");
         return "Admin/information";
     }
 
@@ -51,13 +53,13 @@ public class InformationController {
                     .fullname(informationDTO.getFullname())
                     .isactive(true).build());
 
-        return "redirect:/admin/information";
+        return "redirect:/admin/information/";
     }
 
     @GetMapping("/delete/{id}")
     public String delete(@PathVariable("id") Long id){
         informationService.deleteById(id);
-        return "redirect:/admin/information";
+        return "redirect:/admin/information/";
     }
 
 
