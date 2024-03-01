@@ -1,65 +1,63 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/extras/spring-security6">
 <head>
-    <meta charset="UTF-8">
-    <title>Insert title here</title>
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
 </head>
 <body>
 <div>
-    <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
-        <div class="container"  style="width: 100%">
-            <a class="navbar-brand" th:href="@{/index}">SachiHouse</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
-                    aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="oi oi-menu"></span> Menu
-            </button>
+
+	<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+		<div class="container">
+			<a class="navbar-brand" href="index.html">SachiHouse</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="oi oi-menu"></span> Menu
+			</button>
+
 			<div class="collapse navbar-collapse" id="ftco-nav">
 				<ul class="navbar-nav ml-auto">
 					<li class="nav-item active"><a th:href="@{/index}" class="nav-link">Trang Chủ</a></li>
 					<li  class="nav-item">
 						<a th:href="@{/houses-by-category/15}" class="nav-link">Homestay Đà Lạt</a>
-						</li>
-                    <li class="nav-item"><a href="javascript:void(0);"
-                                            class="nav-link dropdown-toggle" data-toggle="collapse"
-                                            data-target="#villa-menu">Villa</a>
-                        <div style="text-align: center; width: 130px; " id="villa-menu" class="collapsed-menu collapse">
-                            <th:block th:each="category : ${categories}">
-                                <th:block th:if="${#strings.containsIgnoreCase(category.title, 'villa')}">
-                                    <div><a th:href="@{/houses-by-category/{categoryId}(categoryId=${category.id})}"
-                                            th:text="${category.title}"></a></div>
-                                </th:block>
-                            </th:block>
-						</div></li>
+					</li>
+
+					<li class="nav-item"><a href="javascript:void(0);"
+											class="nav-link dropdown-toggle" data-toggle="collapse"
+											data-target="#villa-menu">Villa</a>
+						<ul id="villa-menu" class="collapsed-menu collapse">
+							<th:block th:each="category : ${categories}">
+								<th:block th:if="${#strings.containsIgnoreCase(category.title, 'villa')}">
+									<a th:href="@{/houses-by-category/{categoryId}(categoryId=${category.id})}" th:text="${category.title}"></a><br>
+								</th:block>
+							</th:block>
+
+						</ul></li>
 					<li class="nav-item">
 						<a th:href="@{/houses-by-category/13}" class="nav-link">Căn Hộ</a>
 					</li>
-					<li class="nav-item"><a th:href="@{/rooms}" class="nav-link">Tổng Số Phòng</a></li>
 					<li class="nav-item"><a th:href="@{/about}" class="nav-link">Giới Thiệu</a></li>
 					<li class="nav-item"><a th:href="@{/contact}" class="nav-link">Liên Hệ</a></li>
-					<li class="nav-item"><a th:href="@{/auth/login/form}" class="nav-link">Login</a></li>
-                    <li th:if="${account == null}" class="nav-item"><a th:href="@{/auth/login/form}"
-                                                                       class="nav-link">Đăng Nhập</a></li>
-                    <li th:unless="${account == null}" class="nav-item"><a th:href="@{/auth/logout}"
-                                                                           class="nav-link">Đăng Xuất</a></li>
-                    <li th:unless="${account == null}"  class="nav-item"><a
-                            class="nav-link dropdown-toggle" data-toggle="collapse"
-                            data-target="#manager-menu">Quản Lý</a>
-                        <ul id="manager-menu" class="collapsed-menu collapse">
-                            <div>
-                                <a th:href="@{/admin/list}"> Danh sách nhà</a>
-                            </div>
-                            <div>
-                                <a th:href="@{/admin/information/}"> Danh sách thông tin</a>
-                            </div>
-                        </ul>
-                    </li>
-
-
-                </ul>
-            </div>
-        </div>
-    </nav>
-    <!-- END nav -->
+					<li th:if="${account == null}" class="nav-item"><a th:href="@{/auth/login/form}"
+																	   class="nav-link">Đăng Nhập</a></li>
+					<li th:unless="${account == null}" class="nav-item"><a th:href="@{/auth/logout}"
+																		   class="nav-link">Đăng Xuất</a></li>
+					<li th:unless="${account == null}"  class="nav-item"><a
+							class="nav-link dropdown-toggle" data-toggle="collapse"
+							data-target="#manager-menu">Quản Lý</a>
+						<ul id="manager-menu" class="collapsed-menu collapse">
+							<div>
+								<a th:href="@{/admin/list}"> Danh sách nhà</a>
+							</div>
+							<div>
+								<a th:href="@{/admin/information/}"> Danh sách thông tin</a>
+							</div>
+						</ul>
+					</li>
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<!-- END nav -->
 
 	<section class="home-slider owl-carousel">
 		<div class="slider-item"  th:style="'background-image: url(' + @{/assets/images/bg_3.jpg} + '); height:500px'">
@@ -106,7 +104,7 @@
 							<h1 class="mb-3">Welcome To Sachi House</h1>
 
 							<!--							<h1 class="mb-3">Tận Hưởng Không Khí Đà Lạt</h1>-->
-<!--							<h2>Tham Gia Với Chúng Tôi</h2>-->
+							<!--							<h2>Tham Gia Với Chúng Tôi</h2>-->
 						</div>
 					</div>
 				</div>
