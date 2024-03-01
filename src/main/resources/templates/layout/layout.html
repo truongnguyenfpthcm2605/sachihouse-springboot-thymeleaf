@@ -35,16 +35,16 @@
 <body>
 
 <nav>
-    <div th:replace="~{/layout/header.html}"></div>
+    <div th:replace="~{layout/header.html}"></div>
 </nav>
 
 
 <main th:replace="${view}"></main>
 
-<div th:replace="~{/layout/menucontact.html}"></div>
+<div th:replace="~{layout/menucontact.html}"></div>
 
 <nav>
-    <div th:replace="~{/layout/footer.html}"></div>
+    <div th:replace="~{layout/footer.html}"></div>
 </nav>
 
 <script th:src="@{/assets/js/jquery.min.js}"></script>
