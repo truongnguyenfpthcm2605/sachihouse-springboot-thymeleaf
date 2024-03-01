@@ -28,7 +28,7 @@ public class HomeController {
     private final Session session;
 
 
-    @GetMapping("/index")
+    @GetMapping({"/index","/"})
     public String index(Model model) {
         List<Category> categories = categoryService.findAll();
         List<Category> homestayCategories = new ArrayList<>();
