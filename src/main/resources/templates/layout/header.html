@@ -5,10 +5,10 @@
     <title>Insert title here</title>
 </head>
 <body>
-<div>
+<div style="padding: 0; margin: 0" >
     <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
         <div class="container"  style="width: 100%">
-            <a class="navbar-brand" th:href="@{/index}">SachiHouse</a>
+            <a class="navbar-brand" th:href="@{/index}">Sachi House</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav"
                     aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="oi oi-menu"></span> Menu
@@ -36,7 +36,6 @@
 					<li class="nav-item"><a th:href="@{/rooms}" class="nav-link">Tổng Số Phòng</a></li>
 					<li class="nav-item"><a th:href="@{/about}" class="nav-link">Giới Thiệu</a></li>
 					<li class="nav-item"><a th:href="@{/contact}" class="nav-link">Liên Hệ</a></li>
-					<li class="nav-item"><a th:href="@{/auth/login/form}" class="nav-link">Login</a></li>
                     <li th:if="${account == null}" class="nav-item"><a th:href="@{/auth/login/form}"
                                                                        class="nav-link">Đăng Nhập</a></li>
                     <li th:unless="${account == null}" class="nav-item"><a th:href="@{/auth/logout}"

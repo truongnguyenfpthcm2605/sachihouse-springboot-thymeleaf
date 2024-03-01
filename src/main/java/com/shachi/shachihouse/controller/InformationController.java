@@ -32,7 +32,6 @@ public class InformationController {
         Model model
     ){
         excel.ExportInformation(informationService.findAll());
-        System.out.println(title);
         int p = Common.handlePage(page);
         Page<Information> list = informationService.findAll("%"+title+"%",SortAndPage.getPage(p,PAGE_SIZE,SortAndPage.getSortDown("email")));
         model.addAttribute("list", list);
