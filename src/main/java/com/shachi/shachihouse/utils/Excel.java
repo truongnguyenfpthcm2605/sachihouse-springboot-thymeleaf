@@ -52,7 +52,7 @@ public class Excel {
             for (int i = 0; i < 11; i++) {
                 sheet.autoSizeColumn(i);
             }
-            String filePath = app.getRealPath("/document/houses.xlsx");
+            String filePath = app.getRealPath("/documents/houses.xlsx");
             FileOutputStream outputStream = new FileOutputStream(filePath);
             workbook.write(outputStream);
             workbook.close();
@@ -91,7 +91,7 @@ public class Excel {
             for (int i = 0; i < 4; i++) {
                 sheet.autoSizeColumn(i);
             }
-            String filePath = app.getRealPath("/document/information.xlsx");
+            String filePath = app.getRealPath("/documents/information.xlsx");
             FileOutputStream outputStream = new FileOutputStream(filePath);
             workbook.write(outputStream);
             workbook.close();
