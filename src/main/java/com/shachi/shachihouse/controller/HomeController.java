@@ -64,13 +64,18 @@ public class HomeController {
     public String getHousesByCategory(Model model, @PathVariable Long categoryId) {
         List<House> houses = houseService.findByCategoryId(categoryId);
         List<Category> categories = categoryService.findAll();
+        Optional<Category> selectedCategory = categoryService.findById(categoryId);
+
+        model.addAttribute("selectedCategory", selectedCategory);
         session.setAttribute("categoryId",categoryId);
+
         model.addAttribute("houses", houses);
         model.addAttribute("categories", categories);
 
 
         return "home/rooms";
     }
+
     @GetMapping("/contact")
     public  String contact(Model model){
         List<Category> categories = categoryService.findAll();
