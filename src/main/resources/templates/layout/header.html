@@ -14,11 +14,11 @@
 				<span class="oi oi-menu"></span> Menu
 			</button>
 
-			<div class="collapse navbar-collapse" id="ftco-nav">
-				<ul class="navbar-nav ml-auto">
+			<div class="collapse navbar-collapse" id="ftco-nav" >
+				<ul class="navbar-nav ml-auto" >
 					<li class="nav-item active"><a th:href="@{/index}" class="nav-link">Trang Chủ</a></li>
 					<li  class="nav-item">
-						<a th:href="@{/houses-by-category/15}" class="nav-link">Homestay Đà Lạt</a>
+						<a  th:href="@{/houses-by-category/15}" class="nav-link">Homestay Đà Lạt</a>
 					</li>
 
 					<li class="nav-item"><a href="javascript:void(0);"
@@ -59,16 +59,15 @@
 	</nav>
 	<!-- END nav -->
 
-	<section class="home-slider owl-carousel">
-		<div class="slider-item"  th:style="'background-image: url(' + @{/assets/images/bg_3.jpg} + '); height:500px'">
+	<section >
+		<div th:style="'background-image: url(/assets/images/bg_3.jpg); background-size: cover; background-position: center; width: 100vw; height: 510px;'">
 
-			<div class="overlay"></div>
 			<div style="" class="container">
 				<div class="row no-gutters slider-text align-items-center justify-content-center">
-					<div class="col-md-12 ftco-animate text-center">
+					<div class="col-md-10 ftco-animate text-center">
 						<div  class="d-flex align-items-center justify-content-center">
 							<div style="border: 5px solid gray; background: #ffffffc9;
- padding: 20px; max-width: 400px" class="text-inner text-center">
+ padding: 20px; max-width: 400px;margin-top: 150px" class="text-inner text-center">
 
 								<div id="text-2602762157" class="text">
 
@@ -95,21 +94,7 @@
 			</div>
 		</div>
 
-		<div class="slider-item" th:style="'background-image: url(' + @{/assets/images/bg_16.jpg} + ');height:500px'">
-			<div class="overlay"></div>
-			<div class="container">
-				<div class="row no-gutters slider-text align-items-center justify-content-center">
-					<div class="col-md-12 ftco-animate text-center">
-						<div class="text mb-5 pb-3">
-							<h1 class="mb-3">Welcome To Sachi House</h1>
 
-							<!--							<h1 class="mb-3">Tận Hưởng Không Khí Đà Lạt</h1>-->
-							<!--							<h2>Tham Gia Với Chúng Tôi</h2>-->
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
 	</section>
 
 
