@@ -19,7 +19,7 @@ public class UserDetailService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Account account = accountService.findByEmail(username).orElseThrow(() -> new UsernameNotFoundException("Account not found"));
-        session.setAttribute(Common.ACCOUNT_SESSION,account);
+        Common.ACCOUNT_ACCESS = account;
         return new UserPrinciple(account);
     }
 

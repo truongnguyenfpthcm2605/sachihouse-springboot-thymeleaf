@@ -179,22 +179,6 @@
     });
 </script>
 
-<script>
-    // Bắt sự kiện beforeunload
-    window.addEventListener('beforeunload', function (event) {
-        // Lấy giá trị của session
-        var accountValue = sessionStorage.getItem('account');
-        // Kiểm tra xem session có tồn tại không
-        if (accountValue !== null) {
-            console.log('Giá trị của session "account":', accountValue);
-            // Xóa session có tên 'account'
-            sessionStorage.removeItem('account');
-            console.log('Session "account" đã được xóa.');
-        } else {
-            console.log('Session "account" không tồn tại.');
-        }
-    });
-</script>
 
 </body>
 </html>
