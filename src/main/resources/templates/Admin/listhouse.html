@@ -44,7 +44,7 @@
 
             <a style="margin:0 5px;" class="btn btn-primary my-2 my-sm-0" th:href="@{/admin/addhouse}">Thêm <i class="fa-solid fa-plus"></i></a>
 
-            <a th:href="@{/document/houses.xlsx}" download="houses.xlsx"  class="btn btn-success my-2 my-sm-0" >Export <i class="fa-solid fa-file-excel"></i></a>
+            <a th:href="@{documents}" download="houses.xlsx" class="btn btn-success my-2 my-sm-0" >Export <i class="fa-solid fa-file-excel"></i></a>
 
             <select class="btn btn-light" style="margin-left: 5px" id="exampleFormControlSelect1" name="categoryTitle" onchange="this.form.submit()">
                 <option th:value="${all}"  th:selected="${cTitle == all}">Tất Cả</option>

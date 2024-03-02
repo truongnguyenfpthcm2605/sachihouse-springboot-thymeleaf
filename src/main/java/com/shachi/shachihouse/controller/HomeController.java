@@ -28,7 +28,7 @@ public class HomeController {
     private final Session session;
 
 
-    @GetMapping("/index")
+    @GetMapping({"/index","/"})
     public String index(Model model) {
         List<Category> categories = categoryService.findAll();
         List<Category> homestayCategories = new ArrayList<>();
@@ -58,7 +58,7 @@ public class HomeController {
         model.addAttribute("otherCategories", otherCategories);
         model.addAttribute("houseLists", houseLists);
 
-        return "/home/index";
+        return "home/index";
     }
     @GetMapping("/houses-by-category/{categoryId}")
     public String getHousesByCategory(Model model, @PathVariable Long categoryId) {
@@ -73,7 +73,7 @@ public class HomeController {
         model.addAttribute("categories", categories);
 
 
-        return "/home/rooms";
+        return "home/rooms";
     }
 
     @GetMapping("/contact")
@@ -95,7 +95,7 @@ public class HomeController {
         model.addAttribute("homestayCategories", homestayCategories);
         model.addAttribute("villaCategories", villaCategories);
         model.addAttribute("otherCategories", otherCategories);
-        return "/home/contact";
+        return "home/contact";
     }
     @GetMapping("/about")
     public  String about(Model model){
@@ -116,7 +116,7 @@ public class HomeController {
         model.addAttribute("homestayCategories", homestayCategories);
         model.addAttribute("villaCategories", villaCategories);
         model.addAttribute("otherCategories", otherCategories);
-        return "/home/about";
+        return "home/about";
     }
     @GetMapping("/rooms")
     public String room(Model model) {
@@ -143,7 +143,7 @@ public class HomeController {
 
 
 
-        return "/home/rooms";
+        return "home/rooms";
 
     }
 
@@ -170,7 +170,7 @@ public class HomeController {
         model.addAttribute("homestayCategories", homestayCategories);
         model.addAttribute("villaCategories", villaCategories);
         model.addAttribute("otherCategories", otherCategories);
-        return "/home/rooms-single";
+        return "home/rooms-single";
     }
 
     @GetMapping("/bedroom/search")
@@ -197,7 +197,7 @@ public class HomeController {
         model.addAttribute("homestayCategories", homestayCategories);
         model.addAttribute("villaCategories", villaCategories);
         model.addAttribute("otherCategories", otherCategories);
-        return "/home/rooms";
+        return "home/rooms";
     }
 
     @PostMapping("/bedroom/search")
