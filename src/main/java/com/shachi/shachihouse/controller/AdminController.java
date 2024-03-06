@@ -127,6 +127,7 @@ public class AdminController {
                     .address(houseDTO.getAddress())
                     .description(houseDTO.getDescription())
                     .customer(houseDTO.getCustomer())
+                    .video(houseDTO.getVideo())
                     .price(houseDTO.getPrice())
                     .images(String.join(",", fileService.uploadFiles(multipartFiles, "images")))
                     .isactive(true)

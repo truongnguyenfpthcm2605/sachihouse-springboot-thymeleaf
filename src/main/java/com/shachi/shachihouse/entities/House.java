@@ -23,6 +23,7 @@ public class House implements Serializable {
     private String address;
     private String images;
     private String customer;
+    private String video;
     private Double price;
     private String description;
     @Temporal(TemporalType.DATE)

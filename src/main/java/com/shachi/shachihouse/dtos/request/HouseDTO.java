@@ -29,6 +29,9 @@ public class HouseDTO {
     private Double price;
     @NotBlank(message = "Vui lòng nhập mô tả")
     private String description;
+    @NotBlank(message = "Vui lòng nhập link video </>")
+    private String video;
+
 
 
 }
