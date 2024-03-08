@@ -37,7 +37,7 @@
 <body>
 <div class="container">
     <nav class="navbar navbar-light bg-light justify-content-between">
-        <a class="navbar-brand">Danh Sách House</a>
+        <a class="navbar-brand"  th:href="@{/index}">Trở về trang chủ</a>
         <form class="form-inline" th:action="@{/admin/list}">
             <input class="form-control mr-sm-2" th:value="${keyW}" name="keyword" type="search" placeholder="Search" aria-label="Search" onchange="this.form.submit()"/>
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Tìm <i class="fa-solid fa-magnifying-glass"></i></button>
