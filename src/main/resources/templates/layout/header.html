@@ -37,29 +37,29 @@
 					</li>
 					<li class="nav-item"><a th:href="@{/about}" class="nav-link">Giới Thiệu</a></li>
 					<li class="nav-item"><a th:href="@{/contact}" class="nav-link">Liên Hệ</a></li>
-                    <li th:if="${account == null}" class="nav-item"><a th:href="@{/auth/login/form}"
-                                                                       class="nav-link">Đăng Nhập</a></li>
-                    <li th:unless="${account == null}" class="nav-item"><a th:href="@{/auth/logout}"
-                                                                           class="nav-link">Đăng Xuất</a></li>
-                    <li th:unless="${account == null}"  class="nav-item"><a
-                            class="nav-link dropdown-toggle" data-toggle="collapse"
-                            data-target="#manager-menu">Quản Lý</a>
-                        <ul id="manager-menu" class="collapsed-menu collapse">
-                            <div>
-                                <a th:href="@{/admin/list}"> Danh sách nhà</a>
-                            </div>
-                            <div>
-                                <a th:href="@{/admin/information/}"> Danh sách thông tin</a>
-                            </div>
-                        </ul>
-                    </li>
+					<li th:if="${account == null}" class="nav-item"><a th:href="@{/auth/login/form}"
+																	   class="nav-link">Đăng Nhập</a></li>
+					<li th:unless="${account == null}" class="nav-item"><a th:href="@{/auth/logout}"
+																		   class="nav-link">Đăng Xuất</a></li>
+					<li th:unless="${account == null}"  class="nav-item"><a
+							class="nav-link dropdown-toggle" data-toggle="collapse"
+							data-target="#manager-menu">Quản Lý</a>
+						<ul id="manager-menu" class="collapsed-menu collapse">
+							<div>
+								<a th:href="@{/admin/list}"> Danh sách nhà</a>
+							</div>
+							<div>
+								<a th:href="@{/admin/information/}"> Danh sách thông tin</a>
+							</div>
+						</ul>
+					</li>
 
 
-                </ul>
-            </div>
-        </div>
-    </nav>
-    <!-- END nav -->
+				</ul>
+			</div>
+		</div>
+	</nav>
+	<!-- END nav -->
 
 	<section >
 		<div th:style="'background-image: url(/assets/images/bg_3.jpg); background-size: cover; background-position: center; width: 100vw; height: 510px;'">
