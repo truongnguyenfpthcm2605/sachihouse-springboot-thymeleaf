@@ -3,8 +3,12 @@ package com.shachi.shachihouse.controller;
 import com.shachi.shachihouse.dtos.request.AccountDTO;
 import com.shachi.shachihouse.dtos.request.InformationDTO;
 import com.shachi.shachihouse.entities.Account;
+import com.shachi.shachihouse.entities.Category;
+import com.shachi.shachihouse.entities.House;
 import com.shachi.shachihouse.entities.Role;
 import com.shachi.shachihouse.service.impl.AccountServiceImpl;
+import com.shachi.shachihouse.service.impl.CategoryServiceImpl;
+import com.shachi.shachihouse.service.impl.HouseServiceImpl;
 import com.shachi.shachihouse.service.impl.RoleServiceImpl;
 import com.shachi.shachihouse.utils.Common;
 import com.shachi.shachihouse.utils.Provider;
@@ -24,13 +28,16 @@ import org.springframework.validation.Errors;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Controller
 @RequiredArgsConstructor
 public class AuthenticationController {
-
+    private final HouseServiceImpl houseService;
+    private final CategoryServiceImpl categoryService;
     private final AccountServiceImpl accountService;
     private final RoleServiceImpl roleService;
     private final PasswordEncoder passwordEncoder;
@@ -51,7 +58,34 @@ public class AuthenticationController {
     }
 
     @GetMapping("/auth/login/form")
-    public String loginForm() {
+    public String loginForm( Model model) {
+
+        List<Category> categories = categoryService.findAll();
+        List<Category> homestayCategories = new ArrayList<>();
+        List<Category> villaCategories = new ArrayList<>();
+        List<Category> otherCategories = new ArrayList<>();
+
+        for (Category category : categories) {
+            if (category.getTitle().contains("HOMESTAY")) {
+                homestayCategories.add(category);
+            } else if (category.getTitle().contains("VILLA")) {
+                villaCategories.add(category);
+            } else {
+                otherCategories.add(category); // Thêm vào danh sách danh mục khác
+            }
+        }
+
+        List<List<House>> houseLists = new ArrayList<>();
+
+        for (Category category : categories) {
+            List<House> categoryHouses = houseService.findByCategoryId(category.getId());
+            houseLists.add(categoryHouses);
+        }
+
+        model.addAttribute("categories", categories);
+        model.addAttribute("homestayCategories", homestayCategories);
+        model.addAttribute("villaCategories", villaCategories);
+        model.addAttribute("otherCategories", otherCategories);
         return "home/login";
     }
 
