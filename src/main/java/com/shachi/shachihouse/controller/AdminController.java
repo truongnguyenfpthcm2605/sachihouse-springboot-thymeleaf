@@ -98,6 +98,7 @@ public class AdminController {
                 .toilet(house.getToilet())
                 .address(house.getAddress())
                 .price(house.getPrice())
+                .video(house.getVideo())
                 .customer(house.getCustomer())
                 .description(house.getDescription()).build();
         model.addAttribute("images", house.getImages().split(","));
