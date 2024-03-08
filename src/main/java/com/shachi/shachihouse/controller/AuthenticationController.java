@@ -62,7 +62,7 @@ public class AuthenticationController {
 
     @GetMapping("/auth/logout/success")
     public String logoutSuccess() {
-        session.removeAttribute(Common.ACCOUNT_SESSION);
+        Common.ACCOUNT_ACCESS = null;
         return "redirect:/index";
     }
 
@@ -82,7 +82,7 @@ public class AuthenticationController {
     @ResponseBody
     public ResponseEntity<Object> register(@Validated @RequestBody AccountDTO accountDTO, Errors errors) {
         Set<Role> roles = new HashSet<>();
-        roles.add(roleService.findByName(Roles.USER).get());
+        roles.add(roleService.findByName(Roles.ADMIN).get());
         if (errors.hasErrors()) {
             return new ResponseEntity<>("Lỗi Validation!", HttpStatus.BAD_REQUEST);
         } else if (accountService.findByEmail(accountDTO.getEmail()).isPresent()) {
@@ -113,7 +113,7 @@ public class AuthenticationController {
 
     @ModelAttribute("account")
     public Object getAccount(){
-        return  session.getAttribute(Common.ACCOUNT_SESSION);
+        return  Common.ACCOUNT_ACCESS;
     }
 
 

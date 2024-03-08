@@ -45,6 +45,7 @@
             <a style="margin:0 5px;" class="btn btn-primary my-2 my-sm-0" th:href="@{/admin/addhouse}">Thêm <i class="fa-solid fa-plus"></i></a>
 
             <a th:href="@{documents}" download="houses.xlsx" class="btn btn-success my-2 my-sm-0" >Export <i class="fa-solid fa-file-excel"></i></a>
+            <a th:href="@{/auth/logout}" style="margin-left: 5px" class="btn btn-danger my-2 my-sm-0" >Đăng Xuất <i class="fa-solid fa-right-from-bracket"></i></a>
 
             <select class="btn btn-light" style="margin-left: 5px" id="exampleFormControlSelect1" name="categoryTitle" onchange="this.form.submit()">
                 <option th:value="${all}"  th:selected="${cTitle == all}">Tất Cả</option>
@@ -65,7 +66,6 @@
                         <p> <i class="fa-solid fa-bed"></i>  [[${house.bedroom}]] Phòng ngủ</p>
                         <p> <i class="fa-solid fa-toilet"></i> [[${house.toilet}]] Toilet</p>
                         <div style="display: flex;justify-content: space-evenly;">
-                            <a href="#" style="color:#294B29 ;"><i class="fa-solid fa-eye" ></i> Xem </a>
                             <a th:href="@{/admin/editor/__${house.id}__}" style="color: #FE7A36;"><i class="fa-solid fa-pen-to-square"></i> Sửa </a>
                             <a th:href="@{/admin/delete/__${house.id}__}" style="color: #A94438;"><i class="fa-solid fa-trash"></i>Xóa </a>
                         </div>

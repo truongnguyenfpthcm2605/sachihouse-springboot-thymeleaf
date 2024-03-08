@@ -1,35 +1,35 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" >
 <head>
-	<meta charset="UTF-8">
-	<title>Insert title here</title>
+    <meta charset="UTF-8">
+    <title>Insert title here</title>
 </head>
 <body>
 <div>
 
-	<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
-		<div class="container">
-			<a class="navbar-brand" href="index.html">SachiHouse</a>
-			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
-				<span class="oi oi-menu"></span> Menu
-			</button>
+    <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+        <div class="container">
+            <a class="navbar-brand" th:href="@{/index}">SachiHouse</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="oi oi-menu"></span> Menu
+            </button>
 
-			<div class="collapse navbar-collapse" id="ftco-nav" >
-				<ul class="navbar-nav ml-auto" >
-					<li class="nav-item active"><a th:href="@{/index}" class="nav-link">Trang Chủ</a></li>
-					<li  class="nav-item">
-						<a  th:href="@{/houses-by-category/15}" class="nav-link">Homestay Đà Lạt</a>
-					</li>
+            <div class="collapse navbar-collapse" id="ftco-nav" >
+                <ul class="navbar-nav ml-auto" >
+                    <li class="nav-item active"><a th:href="@{/index}" class="nav-link">Trang Chủ</a></li>
+                    <li  class="nav-item">
+                        <a  th:href="@{/houses-by-category/15}" class="nav-link">Homestay Đà Lạt</a>
+                    </li>
 
-					<li class="nav-item"><a href="javascript:void(0);"
-											class="nav-link dropdown-toggle" data-toggle="collapse"
-											data-target="#villa-menu">Villa</a>
-						<ul id="villa-menu" class="collapsed-menu collapse">
-							<th:block th:each="category : ${categories}">
-								<th:block th:if="${#strings.containsIgnoreCase(category.title, 'villa')}">
-									<a th:href="@{/houses-by-category/{categoryId}(categoryId=${category.id})}" th:text="${category.title}"></a><br>
-								</th:block>
-							</th:block>
+                    <li class="nav-item"><a href="javascript:void(0);"
+                                            class="nav-link dropdown-toggle" data-toggle="collapse"
+                                            data-target="#villa-menu">Villa</a>
+                        <ul id="villa-menu" class="collapsed-menu collapse">
+                            <th:block th:each="category : ${categories}">
+                                <th:block th:if="${#strings.containsIgnoreCase(category.title, 'villa')}">
+                                    <a th:href="@{/houses-by-category/{categoryId}(categoryId=${category.id})}" th:text="${category.title}"></a><br>
+                                </th:block>
+                            </th:block>
 
 						</ul></li>
 					<li class="nav-item">
@@ -61,50 +61,50 @@
 	</nav>
 	<!-- END nav -->
 
-	<section >
-		<div th:style="'background-image: url(/assets/images/bg_3.jpg); background-size: cover; background-position: center; width: 100vw; height: 510px;'">
+    <section >
+        <div th:style="'background-image: url(/assets/images/bg_3.jpg); background-size: cover; background-position: center; width: 100vw; height: 510px;'">
 
-			<div style="" class="container">
-				<div class="row no-gutters slider-text align-items-center justify-content-center">
-					<div class="col-md-10 ftco-animate text-center">
-						<div  class="d-flex align-items-center justify-content-center">
-							<div style="border: 5px solid gray; background: #ffffffc9;
+            <div style="" class="container">
+                <div class="row no-gutters slider-text align-items-center justify-content-center">
+                    <div class="col-md-10 ftco-animate text-center">
+                        <div  class="d-flex align-items-center justify-content-center">
+                            <div style="border: 5px solid gray; background: #ffffffc9;
  padding: 20px; max-width: 400px;margin-top: 150px" class="text-inner text-center">
 
-								<div id="text-2602762157" class="text">
+                                <div id="text-2602762157" class="text">
 
-									<h3 class="uppercase"><strong></strong></h3>
-									<h5 style="font-weight: bold">Chào mừng bạn đến với Sachi House để khám phá Đà Lạt</h5>
-									<p style="color: #1c1a1a">Cảm giác sáng thức dậy ở một nơi xa, giữa một nơi không khí trong lành hãy để Sachi đồng hành cùng bạn.</p>
-									<p>
-
-
-									</p></div>
-
-								<a th:href="@{/houses-by-category/15}" class="button secondary"  style="border-radius: 10px; padding: 10px 20px; background-color: #c4a05e; border: 1px solid #ccc; text-decoration: none; color: #FFFFFF; font-weight: bold;margin-right: 10px">
-									<i class="icon-shopping-bag" aria-hidden="true"></i>  <span>Sản Phẩm</span>
-								</a>
-
-								<a href="tel:0776644770" class="button primary"  style="border-radius: 10px; padding: 10px 20px; background-color: black; border: 1px solid #ccc; text-decoration: none; color: #FFFFFF; font-weight: bold;">
-									<i class="icon-phone" aria-hidden="true"></i>  <span>Tư Vấn</span>
-								</a>
-
-							</div>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
+                                    <h3 class="uppercase"><strong></strong></h3>
+                                    <h5 style="font-weight: bold">Chào mừng bạn đến với Sachi House để khám phá Đà Lạt</h5>
+                                    <p style="color: #1c1a1a">Cảm giác sáng thức dậy ở một nơi xa, giữa một nơi không khí trong lành hãy để Sachi đồng hành cùng bạn.</p>
+                                    <p>
 
 
-	</section>
+                                    </p></div>
+
+                                <a th:href="@{/houses-by-category/15}" class="button secondary"  style="border-radius: 10px; padding: 10px 20px; background-color: #c4a05e; border: 1px solid #ccc; text-decoration: none; color: #FFFFFF; font-weight: bold;margin-right: 10px">
+                                    <i class="icon-shopping-bag" aria-hidden="true"></i>  <span>Sản Phẩm</span>
+                                </a>
+
+                                <a href="tel:0776644770" class="button primary"  style="border-radius: 10px; padding: 10px 20px; background-color: black; border: 1px solid #ccc; text-decoration: none; color: #FFFFFF; font-weight: bold;">
+                                    <i class="icon-phone" aria-hidden="true"></i>  <span>Tư Vấn</span>
+                                </a>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
 
-	<div class="marquee-container">
-		<marquee behavior="scroll" direction="left" class="marquee">
-			<span class="marquee-text">Chào mừng đến với Sachi House DaLat <3 Chúc bạn một ngày mới tốt lành.</span>
-		</marquee>
-	</div>
+    </section>
+
+
+    <div class="marquee-container">
+        <marquee behavior="scroll" direction="left" class="marquee">
+            <span class="marquee-text">Chào mừng đến với Sachi House DaLat <3 Chúc bạn một ngày mới tốt lành.</span>
+        </marquee>
+    </div>
 
 
 
