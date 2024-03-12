@@ -14,11 +14,10 @@ import com.shachi.shachihouse.utils.Excel;
 import com.shachi.shachihouse.utils.SortAndPage;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -54,16 +53,12 @@ public class AdminController {
 
 
 
-
-
     @GetMapping("/list")
     public String list(Model model,
                        @RequestParam(value = "page", required = false) String pageParam,
                        @RequestParam(value = "categoryTitle", defaultValue = "") String title,
                        @RequestParam(value = "keyword", defaultValue = "") String keyword) {
-        if(!Common.checkAdmin()){
-            return "error/403";
-        }
+
         excel.Export(houseService.findAll());
         int page = Common.handlePage(pageParam);
         Page<House> list = houseService.findByKeyword(keyword, title, SortAndPage.getPage(page, pageSize, SortAndPage.getSortDown("title")));
@@ -78,18 +73,14 @@ public class AdminController {
 
     @GetMapping("/addhouse")
     public String addHouse(Model model) {
-        if(!Common.checkAdmin()){
-            return "error/403";
-        }
+
         model.addAttribute("house", new HouseDTO());
         return "Admin/addHouse";
     }
 
     @GetMapping("/editor/{id}")
     public String editHouse(@PathVariable("id") String id, Model model) throws RuntimeExceptionCustom {
-        if(!Common.checkAdmin()){
-            return "error/403";
-        }
+
         House house = houseService.findById(id).get();
         HouseDTO houseDTO = new HouseDTO().builder()
                 .id(house.getId())
@@ -114,12 +105,16 @@ public class AdminController {
                        Model model,
                        @RequestParam("category") Long categoryID,
                        @RequestParam("images") MultipartFile[] multipartFiles) {
-        if(!Common.checkAdmin()){
-            return "error/403";
-        }
+
         if (errors.hasErrors()) {
             model.addAttribute("messageAll", "Thông tin chưa đủ!");
         } else {
+//            if(Objects.isNull(multipartFiles)){
+//                if(houseService.findById(houseDTO.getId()).orElse(null) == null){
+//                    model.addAttribute("messageAll", "Vui lòng chọn hình ảnh");
+//                    return ""
+//                }
+//            }
             model.addAttribute("messageAll", houseService.save(House.builder()
                     .id(houseDTO.getId())
                     .title(houseDTO.getTitle())
@@ -143,9 +138,7 @@ public class AdminController {
 
     @GetMapping("/delete/{id}")
     public String delete(@PathVariable("id") String id) {
-        if(!Common.checkAdmin()){
-            return "error/403";
-        }
+
         houseService.deleteById(id);
         return "redirect:/admin/list";
     }
@@ -153,9 +146,7 @@ public class AdminController {
 
     @GetMapping("/changepass")
     public String changePassword() {
-        if(!Common.checkAdmin()){
-            return "error/403";
-        }
+
         return "Admin/changepass";
     }
 
@@ -164,9 +155,7 @@ public class AdminController {
                                  @RequestParam("email") String email,
                                  @RequestParam("newpass") String newpass,
                                  Model model) {
-        if(!Common.checkAdmin()){
-            return "error/403";
-        }
+
         try {
             Authentication authentication = authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(email, password)
@@ -175,6 +164,8 @@ public class AdminController {
                 Optional<Account> account = accountService.findByEmail(email);
                 account.get().setPassword(passwordEncoder.encode(newpass));
                 accountService.update(account.get());
+
+                SecurityContextHolder.clearContext();
                 return "redirect:/index";
             }
         } catch (Exception e) {

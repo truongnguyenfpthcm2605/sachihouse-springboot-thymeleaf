@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" >
+<html xmlns:th="http://www.thymeleaf.org"  xmlns:sec="http://www.thymeleaf.org/extras/spring-security" >
 <head>
     <meta charset="UTF-8">
     <title>Insert title here</title>
@@ -37,11 +37,11 @@
                     </li>
                     <li class="nav-item"><a th:href="@{/about}" class="nav-link">Giới Thiệu</a></li>
                     <li class="nav-item"><a th:href="@{/contact}" class="nav-link">Liên Hệ</a></li>
-                    <li th:if="${account == null}" class="nav-item"><a th:href="@{/auth/login/form}"
+                    <li sec:authorize="isAnonymous()" class="nav-item"><a th:href="@{/auth/login/form}"
                                                                        class="nav-link">Đăng Nhập</a></li>
-                    <li th:unless="${account == null}" class="nav-item"><a th:href="@{/auth/logout}"
+                    <li sec:authorize="isAuthenticated()" class="nav-item"><a th:href="@{/auth/logout}"
                                                                            class="nav-link">Đăng Xuất</a></li>
-                    <li th:unless="${account == null}"  class="nav-item"><a
+                    <li sec:authorize="isAuthenticated()"  class="nav-item"><a
                             class="nav-link dropdown-toggle" data-toggle="collapse"
                             data-target="#manager-menu">Quản Lý</a>
                         <ul id="manager-menu" class="collapsed-menu collapse">

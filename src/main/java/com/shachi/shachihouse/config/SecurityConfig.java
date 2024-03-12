@@ -1,6 +1,5 @@
 package com.shachi.shachihouse.config;
 
-import com.shachi.shachihouse.security.oauth2.OAuth2UserDetailService;
 import com.shachi.shachihouse.security.userprincal.UserDetailService;
 import com.shachi.shachihouse.utils.Roles;
 import lombok.RequiredArgsConstructor;
@@ -11,7 +10,6 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
-import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -24,17 +22,16 @@ import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.thymeleaf.extras.springsecurity6.dialect.SpringSecurityDialect;
 
 import java.util.Arrays;
 import java.util.Collections;
 
 @Configuration
 @EnableWebSecurity
-@EnableMethodSecurity
 @RequiredArgsConstructor
 public class SecurityConfig {
     private final UserDetailService userDetailService;
-    private final OAuth2UserDetailService oAuth2UserDetailService;
 
     @Bean
     PasswordEncoder getPasswordEncoder() {
@@ -62,6 +59,7 @@ public class SecurityConfig {
                     auth.requestMatchers(HttpMethod.GET,"/health").permitAll();
                     auth.requestMatchers(HttpMethod.GET,"/index").permitAll();
                     auth.requestMatchers("/auth/**").permitAll();
+                    auth.requestMatchers("/admin/**").hasAuthority(Roles.ADMIN.name());
                     auth.anyRequest().permitAll();
                 })
                 .formLogin(login -> login.loginPage("/auth/login/form")
@@ -82,15 +80,8 @@ public class SecurityConfig {
                                 .logoutSuccessUrl("/auth/logout/success")
                                 .addLogoutHandler(new SecurityContextLogoutHandler())
                 )
-                .oauth2Login(httpSecurityOAuth2LoginConfigurer ->
-                        httpSecurityOAuth2LoginConfigurer
-                                .authorizationEndpoint(authorizationEndpointConfig -> authorizationEndpointConfig.baseUri("/oauth2/authorization"))
-                               .userInfoEndpoint(userInfoEndpointConfig -> userInfoEndpointConfig.userService(oAuth2UserDetailService))
-                                .defaultSuccessUrl("/auth/oauth2")
-                                .failureUrl("/auth/oauth2/fail")
-                )
+
                 .exceptionHandling(ex -> ex.accessDeniedPage("/auth/denied"))
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider());
         return http.build();
     }
@@ -106,6 +97,11 @@ public class SecurityConfig {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
         return source;
+    }
+
+    @Bean
+    public SpringSecurityDialect springSecurityDialect() {
+        return new SpringSecurityDialect();
     }
 
 

@@ -13,13 +13,10 @@ public class Common {
     public static final String urlFileException = "/Error/FileException";
     public static final String urlRuntimeExceptionCustom = "/Error/RuntimeExceptionCustom";
 
-    public static Account ACCOUNT_ACCESS ;
 
     public static final String Page404  = "error/404";
 
-    public static Boolean checkAdmin() {
-        return Objects.nonNull(Common.ACCOUNT_ACCESS);
-    }
+
 
     public static String randomCodeMail(){
         StringBuilder stringBuilder = new StringBuilder();

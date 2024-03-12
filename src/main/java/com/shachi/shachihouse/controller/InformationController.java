@@ -31,9 +31,7 @@ public class InformationController {
         @RequestParam(value = "title", defaultValue = "") String title,
         Model model
     ){
-        if(!Common.checkAdmin()){
-            return "error/403";
-        }
+
         excel.ExportInformation(informationService.findAll());
         int p = Common.handlePage(page);
         Page<Information> list = informationService.findAll("%"+title+"%",SortAndPage.getPage(p,PAGE_SIZE,SortAndPage.getSortDown("email")));
@@ -48,9 +46,6 @@ public class InformationController {
     @PostMapping("/save")
     public String save(@ModelAttribute("information") InformationDTO informationDTO
                        ) {
-        if(!Common.checkAdmin()){
-            return "error/403";
-        }
             informationService.save(Information.builder()
                     .phone(informationDTO.getPhone())
                     .email(informationDTO.getEmail())

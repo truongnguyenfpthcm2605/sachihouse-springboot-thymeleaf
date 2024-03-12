@@ -18,6 +18,7 @@ import jakarta.servlet.ServletContext;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -41,25 +42,12 @@ public class AuthenticationController {
     private final AccountServiceImpl accountService;
     private final RoleServiceImpl roleService;
     private final PasswordEncoder passwordEncoder;
-    private final Session session;
+    private  final AuthenticationManager authenticationManager;
 
 
-
-    @GetMapping("/auth/oauth2")
-    public ResponseEntity<Object> authLogin() {
-        Account account = accountService.findByUsernameAndProviderID(Common.email_OAuth2, Common.providerId).orElseThrow(() -> new UsernameNotFoundException("Account not found"));
-        return new ResponseEntity<>(account, HttpStatus.OK);
-    }
-
-    @GetMapping("/auth/oauth2/fail")
-    public String loginFailOAuth2(Model model) {
-        model.addAttribute("message", "Đăng nhập thất bại!");
-        return "home/login";
-    }
 
     @GetMapping("/auth/login/form")
     public String loginForm( Model model) {
-
         List<Category> categories = categoryService.findAll();
         List<Category> homestayCategories = new ArrayList<>();
         List<Category> villaCategories = new ArrayList<>();
@@ -90,13 +78,12 @@ public class AuthenticationController {
     }
 
     @GetMapping("/auth/login/success")
-    public String loginSuccess(Model model) {
+    public String loginSuccess() {
         return "redirect:/index";
     }
 
     @GetMapping("/auth/logout/success")
     public String logoutSuccess() {
-        Common.ACCOUNT_ACCESS = null;
         return "redirect:/index";
     }
 
@@ -145,10 +132,7 @@ public class AuthenticationController {
         return new InformationDTO();
     }
 
-    @ModelAttribute("account")
-    public Object getAccount(){
-        return  Common.ACCOUNT_ACCESS;
-    }
+
 
 
 }
