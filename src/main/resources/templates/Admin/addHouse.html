@@ -113,7 +113,7 @@
             <div class="form-group">
                 <label>Hình ảnh mô tả</label>
                 <input name="images" type="file" class="form-control" id="img" multiple accept="image/png, image/jpg"
-                       >
+                     required  >
 
                <div id="review1" th:if="${images != null }" style="display: flex; margin-top: 10px; justify-content: space-between ; flex-wrap: wrap" >
                    <img   th:each="image : ${images}" th:src="@{/images/__${image}__}"
@@ -331,7 +331,7 @@
 
 
     // Lắng nghe sự kiện khi người dùng chọn hình ảnh
-    document.querySelector('input[name="images"]').addEventListener('change', function (event) {
+    document.querySelector('#img').addEventListener('change', function (event) {
 
         document.getElementById("review1").style.display = "none";
         // Lấy danh sách các tệp tin đã chọn

@@ -5,7 +5,6 @@ import com.shachi.shachihouse.entities.Account;
 import com.shachi.shachihouse.entities.Category;
 import com.shachi.shachihouse.entities.House;
 import com.shachi.shachihouse.entities.Information;
-import com.shachi.shachihouse.mail.MailerService;
 import com.shachi.shachihouse.mail.MailerServiceImpl;
 import com.shachi.shachihouse.service.impl.AccountServiceImpl;
 import com.shachi.shachihouse.service.impl.CategoryServiceImpl;
@@ -15,15 +14,14 @@ import com.shachi.shachihouse.utils.Common;
 import com.shachi.shachihouse.utils.Session;
 import jakarta.mail.MessagingException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
-
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 @Controller
 @RequiredArgsConstructor
@@ -273,10 +271,7 @@ public class HomeController {
         return new InformationDTO();
     }
 
-    @ModelAttribute("account")
-    public Object getAccount() {
-        return Common.ACCOUNT_ACCESS;
-    }
+
 
     @PostMapping("/information/save")
     public String save(@ModelAttribute("information") InformationDTO informationDTO

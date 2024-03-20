@@ -109,12 +109,12 @@ public class AdminController {
         if (errors.hasErrors()) {
             model.addAttribute("messageAll", "Thông tin chưa đủ!");
         } else {
-//            if(Objects.isNull(multipartFiles)){
-//                if(houseService.findById(houseDTO.getId()).orElse(null) == null){
-//                    model.addAttribute("messageAll", "Vui lòng chọn hình ảnh");
-//                    return ""
-//                }
-//            }
+            if(Objects.isNull(multipartFiles)){
+                if(houseService.findById(houseDTO.getId()).orElse(null) == null){
+                    model.addAttribute("messageAll", "Vui lòng chọn hình ảnh");
+                    return "Admin/addHouse";
+                }
+            }
             model.addAttribute("messageAll", houseService.save(House.builder()
                     .id(houseDTO.getId())
                     .title(houseDTO.getTitle())
@@ -138,7 +138,6 @@ public class AdminController {
 
     @GetMapping("/delete/{id}")
     public String delete(@PathVariable("id") String id) {
-
         houseService.deleteById(id);
         return "redirect:/admin/list";
     }
@@ -146,7 +145,6 @@ public class AdminController {
 
     @GetMapping("/changepass")
     public String changePassword() {
-
         return "Admin/changepass";
     }
 
