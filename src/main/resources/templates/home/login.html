@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns="http://www.thymeleaf.org"
+      th:replace="~{layout/layout :: dynamic(~{::body})}">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Insert title here</title>
+</head>
+<body>
+
+
+<!-- Login Form -->
+<form th:action="@{/auth/login}" style="width: 80%; margin: 0 auto" method="post">
+    <div class="modal-header">
+        <h4 class="modal-title" style="margin: auto;">Đăng nhập</h4>
+
+    </div>
+    <div class="modal-body">
+        <div class="mb-3">
+            <label for="Username">Email<span class="text-danger">*</span></label>
+            <input type="text" name="username" class="form-control" id="Username" placeholder="Nhập tài khoản">
+        </div>
+
+        <div class="mb-3">
+            <label for="Password">Mật khẩu<span class="text-danger">*</span></label>
+            <input type="text" name="password" class="form-control" id="Password" placeholder="Nhập mật khẩu">
+        </div>
+        <div class="mb-3" style="margin-left: 20px">
+            <input class="form-check-input" name="remember" type="checkbox" value="" id="remember">
+            <label class="form-check-label" for="remember">Remember Me</label>
+
+        </div>
+        <p class="mb-3" style="margin-left: 8px; color: red; font-weight: bold" th:text="${message}"></p>
+    </div>
+    <div class="modal-footer pt-4">
+        <button type="submit" class="btn btn-dark mx-auto w-100">Đăng nhập</button>
+    </div>
+    <div style="text-align: center; margin: 10px">
+        <a th:href="@{/remmemberPass}" style="color: #1c7430; font-weight: bold; text-decoration: none; font-size: 15px">Quên Mật Khẩu</a>
+    </div>
+</form>
+
+
+
+
+</body>
+</html>

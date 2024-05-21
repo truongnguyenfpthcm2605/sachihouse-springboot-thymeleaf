@@ -1,0 +1,76 @@
+<div xmlns="http://www.thymeleaf.org">
+<script type="text/javascript">
+
+
+</script>
+ <div class="fab-wrapper">
+    <input id="fabCheckbox" type="checkbox" class="fab-checkbox">
+    <label class="fab" for="fabCheckbox">
+       <i class="icon-cps-fab-menu"></i>
+       <!-- <i class="icon-cps-close"></i> -->
+    </label>
+    <div class="fab-wheel">
+       <a class="fab-action fab-action-1" data-toggle="modal" data-target="#exampleModaladd2">
+          <span style="color: #0b0b0b" class="fab-title">Để lại thông tin</span>
+          <div class="fab-button fab-button-1" ><i class="icon-cps-local"></i></div>
+       </a>
+       <a class="fab-action fab-action-2" href="tel:0776644770" rel="nofollow">
+          <span  style="color: #0b0b0b" class="fab-title">Gọi trực tiếp</span>
+          <div class="fab-button fab-button-2"><i class="icon-cps-phone"></i></div>
+       </a>
+
+       <a class="fab-action fab-action-3" href="https://www.facebook.com/messages/t/100243112597122"  rel="nofollow">
+
+   
+          <span  style="color: #0b0b0b" class="fab-title">Chat ngay</span>
+          <div class="fab-button fab-button-3"><i class="icon-cps-chat"></i></div>
+       </a>
+       <a class="fab-action fab-action-4" href="https://zalo.me/0776644770" target="_blank" rel="nofollow">
+          <span  style="color: #0b0b0b" class="fab-title">Chat trên Zalo</span>
+          <div class="fab-button fab-button-4"><i class="icon-cps-chat-zalo"></i></div>
+       </a>
+    </div>
+    <div class="suggestions-chat-box hidden" style="display: none;">
+       <div class="box-content d-flex justify-content-around align-items-center">
+          <i class="fa fa-times-circle" aria-hidden="true" id="btnClose" onclick="jQuery('.suggestions-chat-box').hide()"></i>
+          <p class="mb-0 font-14">Liên hệ ngay <i class="fa fa-hand-o-right" aria-hidden="true"></i></p>
+       </div>
+    </div>
+    <div class="devvn_bg"></div>
+ </div>
+   <div class="modal fade" id="exampleModaladd2" style="z-index: 10000000" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+      <div class="modal-dialog" role="document">
+         <div class="modal-content">
+            <div class="modal-header">
+               <h5 class="modal-title">Thêm thông tin</h5>
+               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+               </button>
+            </div>
+            <div class="modal-body">
+               <form th:action="@{/information/save}" method="post" th:object="${information}">
+                  <div class="form-group">
+                     <label >Họ và Tên</label>
+                     <input type="text" th:field="*{fullname}" class="form-control"  aria-describedby="emailHelp">
+                  </div>
+                  <div class="form-group">
+                     <label >Số điện thoại</label>
+                     <input type="text" th:field="*{phone}" class="form-control"  >
+                  </div>
+                  <div class="form-group">
+                     <label >Email</label>
+                     <input type="text" class="form-control" th:field="*{email}" >
+                  </div>
+
+                  <button class="btn btn-success">Thêm</button>
+
+
+
+               </form>
+            </div>
+
+         </div>
+      </div>
+   </div>
+</div>

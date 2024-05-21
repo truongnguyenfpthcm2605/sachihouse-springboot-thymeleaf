@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns="http://www.thymeleaf.org"
+	  th:replace="~{layout/layout :: dynamic(~{::body})}">
+<head>
+	<meta charset="utf-8">
+	<title>Insert title here</title>
+</head>
+<body >
+<section th:each="category, categoryIndex : ${categories}"  class="ftco-section bg-light">
+	<div class="container">
+		<div class="row justify-content-center mb-5 pb-3">
+			<div class="col-md-7 heading-section text-center ftco-animate">
+				<h2 class="mb-4">[[${category.title}]]</h2>
+			</div>
+		</div>
+
+
+		<div class="row"  >
+			<div th:each="house,houseStat : ${houseLists[categoryIndex.index]} " th:if="${houseStat.index &lt; 4}"  class="col-sm-3 col-md-3 col-lg-3 col-6 ftco-animate">
+				<div  style="border: 1px solid #e6e6e6; background-color: #fff; margin-bottom: 30px;">
+					<a  th:href="@{/detail/{id}(id=${house.id})}">
+						<img class="card-img-top" th:src="@{/images/__${house.images.split(',')[0]}__}" style="width: 100%; height: 230px" alt="Card image cap">
+					</a>
+
+					<div class="text p-3 text-xl-center">
+						<div class="title-container">
+							<a style="color: black" class="title" th:href="@{/detail/{id}(id=${house.id})}" th:text="${house.title}"></a>
+						</div>
+						<hr>
+						<div class="list"  style="color: #8d703b; font-size: 14px;text-align: center">
+							<div><span><i class="fa-solid fa-user-group"></i> Số khách: </span><span style="color: black">[[${house.customer}]]</span> </div>
+							<div><span><i class="fa-solid fa-bed"></i> Phòng Ngủ: </span> <span style="color: black">[[${house.bedroom}]]</span></div>
+							<div><span><i class="fa-solid fa-toilet"></i> Toilet: </span><span style="color: black">[[${house.toilet}]]</span></div>
+							<div><span><i class="fa-solid fa-money-bill-1"></i> Giá Thuê:</span><span style="color: red; ">  [[${house.price != null ? (#numbers.formatDecimal(house.price, 0, 'COMMA',0,'POINT') + ' ₫') : 'N/A'}]] </span></div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+		</div>
+
+
+	</div>
+	<div class="see-more-wrapper">
+		<a th:href="@{/houses-by-category/{categoryId}(categoryId=${category.id})}" class="button secondary">
+			<span>Xem Thêm</span>
+		</a>
+	</div>
+
+
+</section>
+
+
+
+
+
+</body>
+</html>

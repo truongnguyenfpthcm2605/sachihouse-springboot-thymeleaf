@@ -1,0 +1,382 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Title</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+          integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"/>
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+</head>
+<style>
+    .ck-editor__editable[role="textbox"] {
+        /* Editing area */
+        min-height: 200px;
+    }
+
+    #saveButton {
+        background-color: #FC6736;
+        color: white;
+        outline: none;
+        border: none;
+    }
+
+    #saveButton:hover {
+        background-color: #BED754;
+        transition: all linear 0.3s;
+        transform: scale(1.03);
+    }
+
+    .error {
+        font-weight: bold;
+        font-size: 10px;
+        color: red;
+    }
+</style>
+
+<body>
+<div class="container">
+    <a th:href="@{/admin/list}" class="btn btn-light" style="margin-top: 10px"> <i class="fa-solid fa-backward"></i>Quay Lại</a>
+    <div style="width: 20%; margin: 0 auto;">
+        <img th:src="@{/images/logoweb.jpg}" alt=""
+             style="text-align: center; width: 100%; box-shadow: rgba(0, 0, 0, 0.4) 0px 0px 10px;border-radius: 50%;margin: 10px 0;">
+    </div>
+    <h1 style="font-size: 1.2rem; font-weight: bold; text-align: center; ">
+        SACHI
+        <span style="color: #FC6736;">Homestay</span> - <span style="color: #BED754;">Villa</span>
+        ĐÀ LẠT
+    </h1>
+    <div style="width: 80%; margin:  0 auto;">
+        <form th:action="@{/admin/save/house}" th:object="${house}" method="post" enctype="multipart/form-data">
+            <div class="form-group">
+                <label for="exampleInputEmail1">Mã Nhà</label>
+                <input th:field="*{id}" type="text" class="form-control" id="exampleInputEmail1"
+                       placeholder="nhập ID nhà">
+                <span class="error" th:errors="*{id}"> </span>
+            </div>
+            <div class="form-group">
+                <label>Tên Nhà</label>
+                <input th:field="*{title}" type="text" class="form-control" placeholder="tên nhà">
+                <span class="error" th:errors="*{title}"></span>
+            </div>
+            <div class="form-group">
+                <label>Số lượng khách hàng </label>
+                <input th:field="*{customer}" type="text" class="form-control"
+                       placeholder="nhập số lượng khách hàng">
+                <span class="error" th:errors="*{customer}"> </span>
+            </div>
+            <div class="form-group">
+                <label>Phòng Ngủ ( Số Phòng )</label>
+                <input th:field="*{bedroom}" type="text" class="form-control"
+                       placeholder="nhập số lượng phòng">
+                <span class="error" th:errors="*{bedroom}"> </span>
+            </div>
+
+            <div class="form-group">
+                <label>Toilet ( Số Toilet )</label>
+                <input th:field="*{toilet}" type="text" class="form-control"
+                       placeholder="nhập số lượng toilet">
+                <span class="error" th:errors="*{toilet}"></span>
+            </div>
+            <div class="form-group">
+                <label>Giá Nhà (VND)</label>
+                <input type="number" th:field="*{price}"
+                       th:value="${#numbers.formatDecimal(house.price, 0, 'COMMA', 0, 'POINT')}"
+                       class="form-control" min="0" step="0.01"
+                       placeholder="nhập giá">
+                <span class="error" th:errors="*{price}"> </span>
+            </div>
+            <div class="form-group">
+                <label>Địa Chỉ</label>
+                <textarea th:field="*{address}" class="form-control" cols="10" rows="8"
+                          placeholder="nhập địa chỉ"></textarea>
+                <span class="error" th:errors="*{address}"> </span>
+            </div>
+            <div class="form-group">
+                <label>Video</label>
+                <textarea th:field="*{video}" class="form-control" cols="10" rows="8"
+                          placeholder="nhập mã nhúng video"></textarea>
+                <span class="error" th:errors="*{video}"> </span>
+            </div>
+            <div class="form-group">
+                <label for="exampleFormControlSelect1">Loại Nhà</label>
+                <select class="form-control" id="exampleFormControlSelect1" name="category">
+                    <option th:each="item : ${categories}" th:value="${item.id}" th:text="${item.title}"></option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label>Hình ảnh mô tả</label>
+                <input name="images" type="file" class="form-control" id="img" multiple accept="image/png, image/jpg"
+                     required  >
+
+               <div id="review1" th:if="${images != null }" style="display: flex; margin-top: 10px; justify-content: space-between ; flex-wrap: wrap" >
+                   <img   th:each="image : ${images}" th:src="@{/images/__${image}__}"
+                         style="width: 200px; border-radius: 10px; margin-bottom: 10px"
+                   />
+               </div>
+
+
+            </div>
+            <div class="form-group" id="review" style="display: flex; justify-content: space-between; flex-wrap: wrap">
+
+            </div>
+
+            <div id="editor">
+            </div>
+
+            <input type="hidden" id="output" th:field="*{description}">
+            <span class="error" th:errors="*{description}"></span>
+
+            <div style="text-align: center; margin: 10px;">
+                <button type="submit" id="saveButton" class="btn " style="width:200px;">Thêm Mới <i
+                        class="fa-solid fa-file-import"></i></button>
+            </div>
+            <span class="error" th:text="${messageAll}"></span>
+        </form>
+    </div>
+</div>
+<script src="https://cdn.ckeditor.com/ckeditor5/41.0.0/super-build/ckeditor.js"></script>
+<script>
+    var editor;
+
+    document.addEventListener('DOMContentLoaded', function () {
+        // This sample still does not showcase all CKEditor&nbsp;5 features (!)
+        // Visit https://ckeditor.com/docs/ckeditor5/latest/features/index.html to browse all the features.
+        CKEDITOR.ClassicEditor.create(document.getElementById("editor"), {
+            // https://ckeditor.com/docs/ckeditor5/latest/features/toolbar/toolbar.html#extended-toolbar-configuration-format
+            toolbar: {
+                items: [
+                    'exportPDF', 'exportWord', '|',
+                    'findAndReplace', 'selectAll', '|',
+                    'heading', '|',
+                    'bold', 'italic', 'strikethrough', 'underline', 'code', 'subscript', 'superscript', 'removeFormat', '|',
+                    'bulletedList', 'numberedList', 'todoList', '|',
+                    'outdent', 'indent', '|',
+                    'undo', 'redo',
+                    '-',
+                    'fontSize', 'fontFamily', 'fontColor', 'fontBackgroundColor', 'highlight', '|',
+                    'alignment', '|',
+                    'link', 'uploadImage', 'blockQuote', 'insertTable', 'mediaEmbed', 'codeBlock', 'htmlEmbed', '|',
+                    'specialCharacters', 'horizontalLine', 'pageBreak', '|',
+                    'textPartLanguage', '|',
+                    'sourceEditing'
+                ],
+                shouldNotGroupWhenFull: true
+            },
+            // Changing the language of the interface requires loading the language file using the <script> tag.
+            // language: 'es',
+            list: {
+                properties: {
+                    styles: true,
+                    startIndex: true,
+                    reversed: true
+                }
+            },
+            // https://ckeditor.com/docs/ckeditor5/latest/features/headings.html#configuration
+            heading: {
+                options: [
+                    {model: 'paragraph', title: 'Paragraph', class: 'ck-heading_paragraph'},
+                    {model: 'heading1', view: 'h1', title: 'Heading 1', class: 'ck-heading_heading1'},
+                    {model: 'heading2', view: 'h2', title: 'Heading 2', class: 'ck-heading_heading2'},
+                    {model: 'heading3', view: 'h3', title: 'Heading 3', class: 'ck-heading_heading3'},
+                    {model: 'heading4', view: 'h4', title: 'Heading 4', class: 'ck-heading_heading4'},
+                    {model: 'heading5', view: 'h5', title: 'Heading 5', class: 'ck-heading_heading5'},
+                    {model: 'heading6', view: 'h6', title: 'Heading 6', class: 'ck-heading_heading6'}
+                ]
+            },
+            // https://ckeditor.com/docs/ckeditor5/latest/features/editor-placeholder.html#using-the-editor-configuration
+            placeholder: 'Welcome to CKEditor 5!',
+            // https://ckeditor.com/docs/ckeditor5/latest/features/font.html#configuring-the-font-family-feature
+            fontFamily: {
+                options: [
+                    'default',
+                    'Arial, Helvetica, sans-serif',
+                    'Courier New, Courier, monospace',
+                    'Georgia, serif',
+                    'Lucida Sans Unicode, Lucida Grande, sans-serif',
+                    'Tahoma, Geneva, sans-serif',
+                    'Times New Roman, Times, serif',
+                    'Trebuchet MS, Helvetica, sans-serif',
+                    'Verdana, Geneva, sans-serif'
+                ],
+                supportAllValues: true
+            },
+            // https://ckeditor.com/docs/ckeditor5/latest/features/font.html#configuring-the-font-size-feature
+            fontSize: {
+                options: [10, 12, 14, 'default', 18, 20, 22],
+                supportAllValues: true
+            },
+            // Be careful with the setting below. It instructs CKEditor to accept ALL HTML markup.
+            // https://ckeditor.com/docs/ckeditor5/latest/features/general-html-support.html#enabling-all-html-features
+            htmlSupport: {
+                allow: [
+                    {
+                        name: /.*/,
+                        attributes: true,
+                        classes: true,
+                        styles: true
+                    }
+                ]
+            },
+            // Be careful with enabling previews
+            // https://ckeditor.com/docs/ckeditor5/latest/features/html-embed.html#content-previews
+            htmlEmbed: {
+                showPreviews: true
+            },
+            // https://ckeditor.com/docs/ckeditor5/latest/features/link.html#custom-link-attributes-decorators
+            link: {
+                decorators: {
+                    addTargetToExternalLinks: true,
+                    defaultProtocol: 'https://',
+                    toggleDownloadable: {
+                        mode: 'manual',
+                        label: 'Downloadable',
+                        attributes: {
+                            download: 'file'
+                        }
+                    }
+                }
+            },
+            // https://ckeditor.com/docs/ckeditor5/latest/features/mentions.html#configuration
+            mention: {
+                feeds: [
+                    {
+                        marker: '@',
+                        feed: [
+                            '@apple', '@bears', '@brownie', '@cake', '@cake', '@candy', '@canes', '@chocolate', '@cookie', '@cotton', '@cream',
+                            '@cupcake', '@danish', '@donut', '@dragée', '@fruitcake', '@gingerbread', '@gummi', '@ice', '@jelly-o',
+                            '@liquorice', '@macaroon', '@marzipan', '@oat', '@pie', '@plum', '@pudding', '@sesame', '@snaps', '@soufflé',
+                            '@sugar', '@sweet', '@topping', '@wafer'
+                        ],
+                        minimumCharacters: 1
+                    }
+                ]
+            },
+            // The "superbuild" contains more premium features that require additional configuration, disable them below.
+            // Do not turn them on unless you read the documentation and know how to configure them and setup the editor.
+            removePlugins: [
+                // These two are commercial, but you can try them out without registering to a trial.
+                // 'ExportPdf',
+                // 'ExportWord',
+                'AIAssistant',
+                'CKBox',
+                'CKFinder',
+                'EasyImage',
+                // This sample uses the Base64UploadAdapter to handle image uploads as it requires no configuration.
+                // https://ckeditor.com/docs/ckeditor5/latest/features/images/image-upload/base64-upload-adapter.html
+                // Storing images as Base64 is usually a very bad idea.
+                // Replace it on production website with other solutions:
+                // https://ckeditor.com/docs/ckeditor5/latest/features/images/image-upload/image-upload.html
+                // 'Base64UploadAdapter',
+                'RealTimeCollaborativeComments',
+                'RealTimeCollaborativeTrackChanges',
+                'RealTimeCollaborativeRevisionHistory',
+                'PresenceList',
+                'Comments',
+                'TrackChanges',
+                'TrackChangesData',
+                'RevisionHistory',
+                'Pagination',
+                'WProofreader',
+                // Careful, with the Mathtype plugin CKEditor will not load when loading this sample
+                // from a local file system (file://) - load this site via HTTP server if you enable MathType.
+                'MathType',
+                // The following features are part of the Productivity Pack and require additional license.
+                'SlashCommand',
+                'Template',
+                'DocumentOutline',
+                'FormatPainter',
+                'TableOfContents',
+                'PasteFromOfficeEnhanced',
+                'CaseChange'
+            ]
+        }).then(instance => {
+            // Store the CKEditor instance in the global variable
+            editor = instance;
+            // Add blur event listener to CKEditor instance
+            editor.editing.view.document.on('blur', (eventInfo, data) => {
+                // Get the content from the CKEditor instance
+                var editorData = editor.getData();
+                document.getElementById('output').value = editorData;
+            });
+
+            let text = document.getElementById('output').value;
+            if (text != null) {
+                editor.setData(text);
+            }
+            // Event listener for the "Save" button
+            document.getElementById('saveButton').addEventListener('click', function () {
+                // Check if CKEditor instance is defined and has the getData method
+                if (editor && typeof editor.getData === 'function') {
+                    // Get the content from the CKEditor instance
+                    var editorData = editor.getData();
+
+                    // Display the content in the console (or perform other storage steps here)
+                    console.log(editorData);
+                } else {
+                    console.error('CKEditor instance is not properly initialized.');
+                }
+            });
+        })
+            .catch(error => {
+                console.error('Error during CKEditor initialization:', error);
+            });
+    });
+
+
+    // Lắng nghe sự kiện khi người dùng chọn hình ảnh
+    document.querySelector('#img').addEventListener('change', function (event) {
+
+        document.getElementById("review1").style.display = "none";
+        // Lấy danh sách các tệp tin đã chọn
+        const files = event.target.files;
+
+        // Xóa các hình ảnh hiện có trong thẻ div "review"
+        document.getElementById('review').innerHTML = '';
+
+        // Lặp qua từng tệp tin
+        for (const file of files) {
+            // Tạo một đối tượng FileReader để đọc tệp tin
+            const reader = new FileReader();
+
+            // Lắng nghe sự kiện khi tệp tin được đọc
+            reader.onload = function (e) {
+                // Tạo một phần tử img để hiển thị hình ảnh
+                const imgElement = document.createElement('img');
+                imgElement.src = e.target.result;
+                imgElement.style.maxWidth = '200px'; // Đặt kích thước tối đa cho hình ảnh
+                imgElement.style.borderRadius = "10px";
+
+                // Thêm hình ảnh vào thẻ div có id="review"
+                document.getElementById('review').appendChild(imgElement);
+            };
+
+            // Đọc tệp tin dưới dạng URL dữ liệu
+            reader.readAsDataURL(file);
+        }
+
+    });
+
+
+</script>
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

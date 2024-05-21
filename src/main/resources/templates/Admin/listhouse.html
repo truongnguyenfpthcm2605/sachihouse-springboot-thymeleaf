@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <title>Title</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"
+          integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA=="
+          crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        .card {
+            border-radius: 15px;
+            box-shadow: rgba(100, 100, 111, 0.2) 0px 7px 29px 0px;
+            margin-top: 10px;
+            margin-left: 15px;
+        }
+        .card:hover{
+            transform: scale(1.02);
+            transition: all linear 0.3s;
+
+        }
+        .card img{
+            border-radius: 15px;
+        }
+        .blue {
+            color: blue;
+        }
+    </style>
+</head>
+
+<body>
+<div class="container">
+    <nav class="navbar navbar-light bg-light justify-content-between">
+        <a class="navbar-brand"  th:href="@{/index}">Trở về trang chủ</a>
+        <form class="form-inline" th:action="@{/admin/list}">
+            <input class="form-control mr-sm-2" th:value="${keyW}" name="keyword" type="search" placeholder="Search" aria-label="Search" onchange="this.form.submit()"/>
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Tìm <i class="fa-solid fa-magnifying-glass"></i></button>
+
+            <a style="margin:0 5px;" class="btn btn-primary my-2 my-sm-0" th:href="@{/admin/addhouse}">Thêm <i class="fa-solid fa-plus"></i></a>
+
+            <a th:href="@{documents}" download="houses.xlsx" class="btn btn-success my-2 my-sm-0" >Export <i class="fa-solid fa-file-excel"></i></a>
+            <a th:href="@{/auth/logout}" style="margin-left: 5px" class="btn btn-danger my-2 my-sm-0" >Đăng Xuất <i class="fa-solid fa-right-from-bracket"></i></a>
+
+            <select class="btn btn-light" style="margin-left: 5px" id="exampleFormControlSelect1" name="categoryTitle" onchange="this.form.submit()">
+                <option th:value="${all}"  th:selected="${cTitle == all}">Tất Cả</option>
+                <option th:each="item : ${categories}" th:selected="${cTitle == item.title}"  th:value="${item.title}" th:text="${item.title}"></option>
+            </select>
+        </form>
+    </nav>
+    <div th:if="${not #lists.isEmpty(list.content)}">
+        <div class="row">
+            <div class="col-md-4" th:each="house : ${list.content}">
+                <div class="card" style="width: 20rem;">
+                    <img class="card-img-top" th:src="@{/images/__${house.images.split(',')[0]}__}" style="width: 100%; height: 250px" alt="Card image cap">
+                    <div class="card-body">
+                        <h5 class="card-title" style="height: 100px" th:text="${house.title}"></h5>
+                        <p class="card-text" style="font-weight: bold; color: red">
+                            [[${#numbers.formatDecimal(house.price, 0, 'COMMA',0, 'POINT')} + 'vnd' ]] 
+                        </p>                        
+                        <p> <i class="fa-solid fa-users"></i> [[${house.customer}]] Số lượng khách</p>
+                        <p> <i class="fa-solid fa-bed"></i>  [[${house.bedroom}]] Phòng ngủ</p>
+                        <p> <i class="fa-solid fa-toilet"></i> [[${house.toilet}]] Toilet</p>
+                        <div style="display: flex;justify-content: space-evenly;">
+                            <a th:href="@{/admin/editor/__${house.id}__}" style="color: #FE7A36;"><i class="fa-solid fa-pen-to-square"></i> Sửa </a>
+                            <a th:href="@{/admin/delete/__${house.id}__}" style="color: #A94438;"><i class="fa-solid fa-trash"></i>Xóa </a>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="container" style="text-align: center; margin-top: 20px">
+
+            <a class="btn btn-light" th:href="@{|/admin/list?page=${page - 1}&title=${cTitle}&keyword=${keyW}|}"
+               th:if="${page > 1}"><i class="fa-solid fa-backward"></i></a>
+            <a class="btn btn-light"
+               th:each="i : ${#numbers.sequence(1,list.totalPages)}"
+               th:href="@{|/admin/list?page=${i}&title=${cTitle}&keyword=${keyW}|}"
+               th:class="${page == i} ? 'btn btn-primary' : 'btn btn-light'">[[${i}]]</a>
+            <a class="btn btn-light" th:href="@{|/admin/list?page=${page + 1}&title=${cTitle}&keyword=${keyW}|}"
+               th:if="${page < list.totalPages}"> <i class="fa-solid fa-forward"></i></a>
+        </div>
+    </div>
+    <div th:if="${#lists.isEmpty(list.getContent())}" style="text-align: center ;margin-top: 20px; color: red; font-weight: bold">
+            <p>Không có dữ liệu <i class="fa-solid fa-face-sad-tear"></i> </p>
+    </div>
+
+</div>
+
+<!-- Optional JavaScript -->
+<!-- jQuery first, then Popper.js, then Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+        integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+</body>
+
+</html>

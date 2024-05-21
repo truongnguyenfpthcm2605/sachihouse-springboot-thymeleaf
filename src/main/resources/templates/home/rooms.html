@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.thymeleaf.org" th:replace="~{layout/layout::dynamic(~{::body})}">
+
+<head>
+	<title>Deluxe - Free Bootstrap 4 Template by Colorlib</title>
+	<meta charset="utf-8">
+</head>
+<body>
+
+
+
+
+
+
+<section class="ftco-section bg-light">
+	<div class="container">
+
+		<div class="row">
+			<div class="col-lg-9">
+				<div class="row">
+
+					<div th:each="house : ${houses}" class="col-sm-4 col-lg-4 col-md-4 col-6 ftco-animate">
+						<div  class="room">
+							<a  th:href="@{/detail/{id}(id=${house.id})}">
+								<img class="card-img-top" th:src="@{/images/__${house.images.split(',')[0]}__}" style="width: 100%; height: 230px" alt="Card image cap">
+							</a>
+
+							<div class="text p-3 text-center">
+								<div  class="title-container">
+									<a style="color: black" class="title" th:href="@{/detail/{id}(id=${house.id})}" th:text="${house.title}"></a>
+								</div><hr>
+								<ul class="list">
+									<li><span><i class="fa-solid fa-user-group"></i> Số khách: </span>[[${house.customer}]]</li>
+									<li> <span> <i class="fa-solid fa-bed"></i> Phòng Ngủ: </span>[[${house.bedroom}]]</li>
+									<li> <span> <i class="fa-solid fa-toilet"></i> Toilet: </span>[[${house.toilet}]] </li>
+									<li><span> <i class="fa-solid fa-money-bill-1"></i> Giá Từ:</span><span style="color: red;">   [[${house.price != null ? (#numbers.formatDecimal(house.price, 0, 'COMMA',0,'POINT') + ' ₫') : 'N/A'}]] </span></li>
+								</ul>
+
+							</div>
+						</div>
+					</div>
+
+
+					<div th:each="house : ${searchResults}"   class="col-sm-4 col-lg-4 col-md-4 col-6 ftco-animate">
+						<div  class="room">
+							<a  th:href="@{/detail/{id}(id=${house.id})}">
+								<img class="card-img-top" th:src="@{/images/__${house.images.split(',')[0]}__}" style="width: 100%; height: 230px" alt="Card image cap">
+							</a>
+
+							<div class="text p-3 text-center">
+								<div class="title-container" >
+									<a style="color: black" class="title" th:href="@{/detail/{id}(id=${house.id})}" th:text="${house.title}"></a>
+								</div><hr>
+								<ul class="list">
+									<li><span><i class="fa-solid fa-user-group"></i> Lượng khách: </span>[[${house.customer}]]</li>
+									<li> <span> <i class="fa-solid fa-bed"></i> Phòng Ngủ: </span>[[${house.bedroom}]]</li>
+									<li> <span> <i class="fa-solid fa-toilet"></i> Toilet: </span>[[${house.toilet}]] </li>
+									<li><span> <i class="fa-solid fa-money-bill-1"></i> Giá Từ:</span><span style="color: red;"> [[${house.price != null ?(#numbers.formatDecimal(house.price, 0, 'COMMA',0,'POINT') + ' ₫') : 'N/A'}]]</span></li>
+								</ul>
+
+							</div>
+						</div>
+					</div >
+
+
+				</div>
+				<div class="row">
+					<div class="col text-center">
+						<ul class="pagination">
+							<!-- Các nút phân trang được tạo bằng JavaScript sẽ được chèn vào đây -->
+						</ul>
+					</div>
+				</div>
+					<!-- Pagination -->
+
+
+
+
+
+
+			</div>
+
+			<div class="col-lg-3 sidebar">
+				<div class="sidebar-wrap bg-light ftco-animate">
+					<h3 class="heading mb-4">Tìm Kiếm</h3>
+					<form   th:action="@{/customer/search}" method="post">
+						<div class="fields">
+
+
+							<div class="form-group">
+								<div class="select-wrap one-third">
+									<div class="icon"><span class="ion-ios-arrow-down"></span></div>
+									<div class="search-input-wrap">
+										<input type="text" id="customer" name="customer" class="form-control" placeholder="Nhập số lượng khách"     />
+									</div>
+								</div>
+							</div>
+
+							<div class="form-group">
+								<input type="submit" value="Lọc" class="btn btn-primary py-3 px-5">
+							</div>
+						</div>
+					</form>
+
+					<form   th:action="@{/bedroom/search}" method="post">
+						<div class="fields">
+
+
+							<div class="form-group">
+								<div class="select-wrap one-third">
+									<div class="icon"><span class="ion-ios-arrow-down"></span></div>
+									<div class="search-input-wrap">
+										<input type="number" id="bedrooms" name="bedrooms" class="form-control" placeholder="Nhập số lượng phòng"     />
+
+									</div>
+								</div>
+							</div>
+
+<!--							<div class="form-group">-->
+<!--								<div class="range-slider">-->
+<!--		              		<span>-->
+<!--										    <input type="number" value="25000" min="0" max="120000"/>	- -->
+<!--										    <input type="number" value="50000" min="0" max="120000"/>-->
+<!--										  </span>-->
+<!--									<input value="1000" min="0" max="120000" step="500" type="range"/>-->
+<!--									<input value="50000" min="0" max="120000" step="500" type="range"/>-->
+<!--									</svg>-->
+<!--								</div>-->
+<!--							</div>-->
+							<div class="form-group">
+								<input type="submit" value="Lọc" class="btn btn-primary py-3 px-5">
+							</div>
+						</div>
+					</form>
+				</div>
+
+			</div>
+
+
+		</div>
+	</div>
+</section>
+
+
+
+
+
+</body>
+</html>
