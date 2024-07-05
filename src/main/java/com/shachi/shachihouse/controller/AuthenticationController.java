@@ -6,6 +6,10 @@ import com.shachi.shachihouse.entities.Account;
 import com.shachi.shachihouse.entities.Category;
 import com.shachi.shachihouse.entities.House;
 import com.shachi.shachihouse.entities.Role;
+import com.shachi.shachihouse.service.AccountService;
+import com.shachi.shachihouse.service.CategoryService;
+import com.shachi.shachihouse.service.HouseService;
+import com.shachi.shachihouse.service.RoleService;
 import com.shachi.shachihouse.service.impl.AccountServiceImpl;
 import com.shachi.shachihouse.service.impl.CategoryServiceImpl;
 import com.shachi.shachihouse.service.impl.HouseServiceImpl;
@@ -31,10 +35,10 @@ import java.util.Set;
 @Controller
 @RequiredArgsConstructor
 public class AuthenticationController {
-    private final HouseServiceImpl houseService;
-    private final CategoryServiceImpl categoryService;
-    private final AccountServiceImpl accountService;
-    private final RoleServiceImpl roleService;
+    private final HouseService houseService;
+    private final CategoryService categoryService;
+    private final AccountService accountService;
+    private final RoleService roleService;
     private final PasswordEncoder passwordEncoder;
 
 
@@ -52,7 +56,7 @@ public class AuthenticationController {
             } else if (category.getTitle().contains("VILLA")) {
                 villaCategories.add(category);
             } else {
-                otherCategories.add(category); // Thêm vào danh sách danh mục khác
+                otherCategories.add(category);
             }
         }
 

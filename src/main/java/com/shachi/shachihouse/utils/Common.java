@@ -7,8 +7,6 @@ import java.time.LocalDate;
 import java.util.Random;
 
 public class Common {
-    public static String providerId;
-    public static String email_OAuth2;
     public static LocalDate dateNow = LocalDate.now();
     public static final String urlFileException = "/Error/FileException";
     public static final String urlRuntimeExceptionCustom = "/Error/RuntimeExceptionCustom";

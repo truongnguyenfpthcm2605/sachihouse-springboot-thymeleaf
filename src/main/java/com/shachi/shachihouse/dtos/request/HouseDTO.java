@@ -2,17 +2,14 @@ package com.shachi.shachihouse.dtos.request;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-@Data
+
 @Builder
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
 public class HouseDTO {
-
     @NotBlank(message = "Vui lòng nhập mã nhà")
     private String id;
     @NotBlank(message = "Vui lòng nhập tên nhà")
@@ -31,7 +28,5 @@ public class HouseDTO {
     private String description;
     @NotBlank(message = "Vui lòng nhập link video </>")
     private String video;
-
-
 
 }

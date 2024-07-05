@@ -2,6 +2,7 @@ package com.shachi.shachihouse.controller;
 
 import com.shachi.shachihouse.dtos.request.InformationDTO;
 import com.shachi.shachihouse.entities.Information;
+import com.shachi.shachihouse.service.InformationService;
 import com.shachi.shachihouse.service.impl.InformationServiceImpl;
 import com.shachi.shachihouse.utils.Common;
 import com.shachi.shachihouse.utils.Excel;
@@ -19,9 +20,8 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("admin/information")
 public class InformationController {
 
-    private final InformationServiceImpl informationService;
+    private final InformationService informationService;
     private final Excel excel;
-    private final Integer PAGE_SIZE = 10;
 
 
 
@@ -34,7 +34,7 @@ public class InformationController {
 
         excel.ExportInformation(informationService.findAll());
         int p = Common.handlePage(page);
-        Page<Information> list = informationService.findAll("%"+title+"%",SortAndPage.getPage(p,PAGE_SIZE,SortAndPage.getSortDown("email")));
+        Page<Information> list = informationService.findAll("%"+title+"%",SortAndPage.getPage(p,10,SortAndPage.getSortDown("email")));
         model.addAttribute("list", list);
         model.addAttribute("page", p+1);
         model.addAttribute("title", title);

@@ -5,7 +5,14 @@ import com.shachi.shachihouse.entities.Account;
 import com.shachi.shachihouse.entities.Category;
 import com.shachi.shachihouse.entities.House;
 import com.shachi.shachihouse.exception.RuntimeExceptionCustom;
+<<<<<<< Updated upstream
 import com.shachi.shachihouse.service.CategoryService;
+=======
+import com.shachi.shachihouse.service.AccountService;
+import com.shachi.shachihouse.service.CategoryService;
+import com.shachi.shachihouse.service.FileService;
+import com.shachi.shachihouse.service.HouseService;
+>>>>>>> Stashed changes
 import com.shachi.shachihouse.service.impl.AccountServiceImpl;
 import com.shachi.shachihouse.service.impl.CategoryServiceImpl;
 import com.shachi.shachihouse.service.impl.FileServiceImpl;
@@ -38,13 +45,17 @@ import java.util.Optional;
 public class AdminController {
 
     private final CategoryService categoryService;
+<<<<<<< Updated upstream
     private final FileServiceImpl fileService;
     private final HouseServiceImpl houseService;
+=======
+    private final FileService fileService;
+    private final HouseService houseService;
+>>>>>>> Stashed changes
     private final Excel excel;
-    private final AccountServiceImpl accountService;
+    private final AccountService accountService;
     private final AuthenticationManager authenticationManager;
     private final PasswordEncoder passwordEncoder;
-    private final Integer pageSize = 3;
 
 
     @ModelAttribute("categories")
@@ -62,7 +73,7 @@ public class AdminController {
 
         excel.Export(houseService.findAll());
         int page = Common.handlePage(pageParam);
-        Page<House> list = houseService.findByKeyword(keyword, title, SortAndPage.getPage(page, pageSize, SortAndPage.getSortDown("title")));
+        Page<House> list = houseService.findByKeyword(keyword, title, SortAndPage.getPage(page, 3, SortAndPage.getSortDown("title")));
         model.addAttribute("list", list);
         model.addAttribute("page", page + 1);
         model.addAttribute("keyW", keyword);
@@ -83,7 +94,7 @@ public class AdminController {
     public String editHouse(@PathVariable("id") String id, Model model) throws RuntimeExceptionCustom {
 
         House house = houseService.findById(id).get();
-        HouseDTO houseDTO = new HouseDTO().builder()
+        HouseDTO houseDTO = HouseDTO.builder()
                 .id(house.getId())
                 .title(house.getTitle())
                 .bedroom(house.getBedroom())

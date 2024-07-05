@@ -5,11 +5,11 @@ import com.shachi.shachihouse.entities.Account;
 import com.shachi.shachihouse.entities.Category;
 import com.shachi.shachihouse.entities.House;
 import com.shachi.shachihouse.entities.Information;
-import com.shachi.shachihouse.mail.MailerServiceImpl;
-import com.shachi.shachihouse.service.impl.AccountServiceImpl;
-import com.shachi.shachihouse.service.impl.CategoryServiceImpl;
-import com.shachi.shachihouse.service.impl.HouseServiceImpl;
-import com.shachi.shachihouse.service.impl.InformationServiceImpl;
+import com.shachi.shachihouse.mail.MailerService;
+import com.shachi.shachihouse.service.AccountService;
+import com.shachi.shachihouse.service.CategoryService;
+import com.shachi.shachihouse.service.HouseService;
+import com.shachi.shachihouse.service.InformationService;
 import com.shachi.shachihouse.utils.Common;
 import com.shachi.shachihouse.utils.Session;
 import jakarta.mail.MessagingException;
@@ -28,12 +28,12 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class HomeController {
 
-    private final HouseServiceImpl houseService;
-    private final CategoryServiceImpl categoryService;
-    private final InformationServiceImpl informationService;
+    private final HouseService houseService;
+    private final CategoryService categoryService;
+    private final InformationService informationService;
     private final Session session;
-    private final MailerServiceImpl mailerService;
-    private final AccountServiceImpl accountService;
+    private final MailerService mailerService;
+    private final AccountService accountService;
     private final PasswordEncoder passwordEncoder;
 
     @GetMapping({ "/index", "/" })
