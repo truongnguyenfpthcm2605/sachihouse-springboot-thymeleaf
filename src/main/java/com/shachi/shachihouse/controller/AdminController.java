@@ -5,18 +5,10 @@ import com.shachi.shachihouse.entities.Account;
 import com.shachi.shachihouse.entities.Category;
 import com.shachi.shachihouse.entities.House;
 import com.shachi.shachihouse.exception.RuntimeExceptionCustom;
-<<<<<<< Updated upstream
-import com.shachi.shachihouse.service.CategoryService;
-=======
 import com.shachi.shachihouse.service.AccountService;
 import com.shachi.shachihouse.service.CategoryService;
 import com.shachi.shachihouse.service.FileService;
 import com.shachi.shachihouse.service.HouseService;
->>>>>>> Stashed changes
-import com.shachi.shachihouse.service.impl.AccountServiceImpl;
-import com.shachi.shachihouse.service.impl.CategoryServiceImpl;
-import com.shachi.shachihouse.service.impl.FileServiceImpl;
-import com.shachi.shachihouse.service.impl.HouseServiceImpl;
 import com.shachi.shachihouse.utils.Common;
 import com.shachi.shachihouse.utils.Excel;
 import com.shachi.shachihouse.utils.SortAndPage;
@@ -45,13 +37,8 @@ import java.util.Optional;
 public class AdminController {
 
     private final CategoryService categoryService;
-<<<<<<< Updated upstream
-    private final FileServiceImpl fileService;
-    private final HouseServiceImpl houseService;
-=======
     private final FileService fileService;
     private final HouseService houseService;
->>>>>>> Stashed changes
     private final Excel excel;
     private final AccountService accountService;
     private final AuthenticationManager authenticationManager;

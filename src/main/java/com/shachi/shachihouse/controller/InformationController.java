@@ -3,7 +3,6 @@ package com.shachi.shachihouse.controller;
 import com.shachi.shachihouse.dtos.request.InformationDTO;
 import com.shachi.shachihouse.entities.Information;
 import com.shachi.shachihouse.service.InformationService;
-import com.shachi.shachihouse.service.impl.InformationServiceImpl;
 import com.shachi.shachihouse.utils.Common;
 import com.shachi.shachihouse.utils.Excel;
 import com.shachi.shachihouse.utils.SortAndPage;
