@@ -5,6 +5,7 @@ import com.shachi.shachihouse.entities.Account;
 import com.shachi.shachihouse.entities.Category;
 import com.shachi.shachihouse.entities.House;
 import com.shachi.shachihouse.exception.RuntimeExceptionCustom;
+import com.shachi.shachihouse.service.CategoryService;
 import com.shachi.shachihouse.service.impl.AccountServiceImpl;
 import com.shachi.shachihouse.service.impl.CategoryServiceImpl;
 import com.shachi.shachihouse.service.impl.FileServiceImpl;
@@ -36,7 +37,7 @@ import java.util.Optional;
 @RequestMapping("/admin")
 public class AdminController {
 
-    private final CategoryServiceImpl categoryService;
+    private final CategoryService categoryService;
     private final FileServiceImpl fileService;
     private final HouseServiceImpl houseService;
     private final Excel excel;
